@@ -68,6 +68,24 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
 export const useAppContext = () => {
   const context = useContext(AppContext);
-  if (!context) throw new Error('useAppContext must be used within AppProvider');
+  if (!context) {
+    // During pre-rendering on the server there is no AppProvider wrapping the tree.
+    // Return a safe fallback so prerendering doesn't throw. Client hydration will replace
+    // this with the real context provided by AppProvider.
+    if (typeof window === 'undefined') {
+      return {
+        language: 'vi' as Language,
+        setLanguage: () => {},
+        theme: 'dark' as Theme,
+        toggleTheme: () => {},
+        t: (path: string) => path,
+        insights: DEFAULT_INSIGHTS,
+        addInsight: () => {},
+        deleteInsight: () => {},
+      } as AppContextType;
+    }
+
+    throw new Error('useAppContext must be used within AppProvider');
+  }
   return context;
 };
