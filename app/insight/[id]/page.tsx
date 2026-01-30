@@ -9,7 +9,7 @@ import { useAppContext } from '../../../context/AppContext';
 export default function InsightDetail() {
   const params = useParams();
   const router = useRouter();
-  const id = params.id as string;
+  const id = params && params.id ? (params.id as string) : '';
   const { insights, language, t, theme } = useAppContext();
   
   const insight = insights.find(i => i.id === id);
