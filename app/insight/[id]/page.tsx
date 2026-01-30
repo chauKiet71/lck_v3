@@ -6,6 +6,8 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAppContext } from '../../../context/AppContext';
 
+export const dynamic = 'force-dynamic';
+
 export default function InsightDetail() {
   const params = useParams();
   const router = useRouter();
