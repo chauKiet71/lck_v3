@@ -9,7 +9,13 @@ import { useAppContext } from '../../../context/AppContext';
 export default function InsightDetail() {
   const params = useParams();
   const router = useRouter();
-  const id = params && params.id ? (params.id as string) : '';
+  
+  // Type-safe extraction of id from params
+  let id = '';
+  if (params && typeof params.id === 'string') {
+    id = params.id;
+  }
+  
   const { insights, language, t, theme } = useAppContext();
   
   const insight = insights.find(i => i.id === id);
