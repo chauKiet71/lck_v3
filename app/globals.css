@@ -22,6 +22,12 @@
   .silver-text {
     @apply bg-clip-text text-transparent bg-gradient-to-br from-slate-900 to-slate-500 dark:from-slate-50 dark:to-slate-400;
   }
+
+  /* Force outline to 0px for Tailwind's .focus:outline-none (override default transparent outline) */
+  .focus\:outline-none:focus {
+    outline: 0px solid transparent !important;
+    outline-offset: 0 !important;
+  }
 }
 
 html.dark body {

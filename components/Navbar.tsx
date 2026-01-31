@@ -8,20 +8,46 @@ import { useAppContext } from '../context/AppContext';
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [hash, setHash] = useState<string>(() => typeof window !== 'undefined' ? window.location.hash : '');
+  const [selectedLink, setSelectedLink] = useState<string | null>(null);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
   const { language, setLanguage, theme, toggleTheme, t } = useAppContext();
   const pathname = usePathname();
-  
+
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const onHashChange = () => setHash(window.location.hash);
+    // set initial hash in case page loaded with a hash
+    setHash(typeof window !== 'undefined' ? window.location.hash : '');
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
+  // Clear temporary selection when real URL state changes
+  useEffect(() => {
+    if (selectedLink) setSelectedLink(null);
+  }, [pathname, hash]);
+
+  // Close mobile menu on ESC
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsMobileOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
   const navLinks = [
     { name: t('nav.home') || 'Home', href: '/', hash: '' },
     { name: t('nav.services') || 'Services', href: '/', hash: '#services' },
-    { name: t('nav.insights') || 'Insights', href: '/news', hash: '' },
-    { name: t('nav.crm') || 'CRM', href: '/crm', hash: '' },
+    { name: t('nav.about') || 'About', href: '/', hash: '#about' },
+    { name: t('nav.insights') || 'Insights', href: '/', hash: '#insights' },
+    // { name: t('nav.crm') || 'CRM', href: '/crm', hash: '' },
   ];
 
   return (
@@ -33,15 +59,18 @@ const Navbar: React.FC = () => {
           </div>
           <h1 className="text-xl font-extrabold tracking-tight text-white uppercase hidden sm:block">Lê Châu Kiệt</h1>
         </Link>
-        
+
         <nav className="hidden lg:flex items-center gap-10">
           {navLinks.map((link) => {
             const href = (link.href + link.hash) || '/';
+            // Prefer a temporarily selected link so clicking "About" or "Services" immediately overrides "Home"
+            const isActive = selectedLink ? selectedLink === link.name : (pathname === link.href && (link.hash ? hash === link.hash : true));
             return (
-              <Link 
-                key={link.name} 
+              <Link
+                key={link.name}
                 href={href}
-                className={`text-[10px] font-bold uppercase tracking-widest transition-all ${pathname === link.href ? 'text-primary' : 'text-slate-400 hover:text-white'}`}
+                onClick={() => { if (link.hash) setHash(link.hash); setSelectedLink(link.name); }}
+                className={`text-[10px] font-bold uppercase tracking-widest transition-all ${isActive ? 'text-primary' : 'text-slate-400 hover:text-white'}`}
               >
                 {link.name}
               </Link>
@@ -65,8 +94,17 @@ const Navbar: React.FC = () => {
             </button>
           </div>
 
-          <button 
-            onClick={toggleTheme} 
+          {/* Mobile menu button */}
+          <button
+            onClick={() => setIsMobileOpen(true)}
+            className="lg:hidden w-9 h-9 rounded-full bg-white/5 border border-white/5 flex items-center justify-center text-slate-400 hover:text-white transition-all"
+            aria-label="Open Menu"
+          >
+            <span className="material-symbols-outlined">menu</span>
+          </button>
+
+          <button
+            onClick={toggleTheme}
             className="w-9 h-9 rounded-full bg-white/5 border border-white/5 flex items-center justify-center text-slate-400 hover:text-primary transition-colors"
             aria-label="Toggle Theme"
           >
@@ -78,6 +116,36 @@ const Navbar: React.FC = () => {
           </Link>
         </div>
       </div>
+
+      {isMobileOpen && (
+        <div className="lg:hidden fixed inset-0 z-50 bg-black/50" role="dialog" aria-modal="true" onClick={() => setIsMobileOpen(false)}>
+          <div className="fixed top-16 right-4 left-4 bg-navy-deep/95 border border-white/10 rounded-lg p-6 shadow-xl" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-white font-bold">Menu</h2>
+              <button onClick={() => setIsMobileOpen(false)} className="text-slate-400 hover:text-white" aria-label="Close Menu">
+                <span className="material-symbols-outlined">close</span>
+              </button>
+            </div>
+            <nav className="flex flex-col gap-4">
+              {navLinks.map((link) => {
+                const href = (link.href + link.hash) || '/';
+                const isActive = selectedLink ? selectedLink === link.name : (pathname === link.href && (link.hash ? hash === link.hash : true));
+                return (
+                  <Link
+                    key={link.name}
+                    href={href}
+                    onClick={() => { if (link.hash) setHash(link.hash); setSelectedLink(link.name); setIsMobileOpen(false); }}
+                    className={`text-white font-bold uppercase text-sm ${isActive ? 'text-primary' : 'text-slate-300 hover:text-white'}`}
+                  >
+                    {link.name}
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
+        </div>
+      )}
+
     </header>
   );
 };

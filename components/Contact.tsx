@@ -145,7 +145,7 @@ const Contact: React.FC = () => {
                     <input 
                       type="text" 
                       placeholder="Alexander Hamilton" 
-                      className="w-full px-0 py-3 bg-transparent border-0 border-b border-black/10 dark:border-white/10 focus:border-primary focus:ring-0 transition-all text-slate-900 dark:text-white placeholder-slate-300 dark:placeholder-slate-700"
+                      className="w-full px-0 py-3 bg-transparent border-0 border-b border-black/10 dark:border-white/10 focus:border-transparent focus:outline-none focus:ring-0 transition-all text-slate-900 dark:text-white placeholder-slate-300 dark:placeholder-slate-700"
                       value={formData.name}
                       onChange={(e) => setFormData({...formData, name: e.target.value})}
                       required
@@ -156,7 +156,7 @@ const Contact: React.FC = () => {
                     <input 
                       type="tel" 
                       placeholder="+84 ..." 
-                      className="w-full px-0 py-3 bg-transparent border-0 border-b border-black/10 dark:border-white/10 focus:border-primary focus:ring-0 transition-all text-slate-900 dark:text-white placeholder-slate-300 dark:placeholder-slate-700"
+                      className="w-full px-0 py-3 bg-transparent border-0 border-b border-black/10 dark:border-white/10 focus:border-transparent focus:outline-none focus:ring-0 transition-all text-slate-900 dark:text-white placeholder-slate-300 dark:placeholder-slate-700"
                       value={formData.phone}
                       onChange={(e) => setFormData({...formData, phone: e.target.value})}
                     />
@@ -166,7 +166,7 @@ const Contact: React.FC = () => {
                 <div className="space-y-3">
                   <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">{t('contact.form_interest')}</label>
                   <select 
-                    className="w-full px-0 py-3 bg-transparent border-0 border-b border-black/10 dark:border-white/10 focus:border-primary focus:ring-0 transition-all text-slate-900 dark:text-white/50"
+                    className="w-full px-0 py-3 bg-transparent border-0 border-b border-black/10 dark:border-white/10 focus:border-transparent focus:outline-none focus:ring-0 transition-all text-slate-900 dark:text-white/50"
                     value={formData.service}
                     onChange={(e) => setFormData({...formData, service: e.target.value})}
                   >
@@ -182,7 +182,7 @@ const Contact: React.FC = () => {
                   <textarea 
                     rows={3} 
                     placeholder={t('contact.form_vision_placeholder')}
-                    className="w-full px-0 py-3 bg-transparent border-0 border-b border-black/10 dark:border-white/10 focus:border-primary focus:ring-0 transition-all text-slate-900 dark:text-white placeholder-slate-300 dark:placeholder-slate-700 resize-none"
+                    className="w-full px-0 py-3 bg-transparent border-0 border-b border-black/10 dark:border-white/10 focus:border-transparent focus:outline-none focus:ring-0 transition-all text-slate-900 dark:text-white placeholder-slate-300 dark:placeholder-slate-700 resize-none"
                     value={formData.message}
                     onChange={(e) => setFormData({...formData, message: e.target.value})}
                     required
