@@ -48,19 +48,21 @@ export const translations = {
     philosophy: { title: 'The Core Philosophy', p1_title: 'Selective Quality', p1_desc: 'We only engage with projects where we can deliver transformational value, ensuring boutique-level attention.', p2_title: 'Strategic Mindset', p2_desc: 'Decisions backed by data and psychological insights, moving beyond simple automation to human-centric growth.', p3_title: 'Sustainable Results', p3_desc: 'Xây dựng tài sản và phễu hoạt động nhất quán trong nhiều năm, không chỉ trong các chiến dịch ngắn hạn.', cta_title: 'Ready for a Paradigm Shift?', cta_desc: 'Elevate your digital presence to match the quality of your services. Let\'s engineer your growth together.', cta_button: 'Book Strategy Session' },
     testimonials: { title: 'Strategic Partnerships', items: { '1': { quote: "Kiệt's strategic approach reduced our CPA by 40% while simultaneously doubling our luxury brand sentiment scores." }, '2': { quote: "The attention to detail in our web ecosystem redesign was unparalleled. A true partner in the digital age." }, '3': { quote: "Our TikTok growth reached 100k engaged followers within weeks. Kiệt understands social mechanics like no other." } } },
     insights: { title: 'Curated Insights', subtitle: 'Advanced perspectives on the future of digital marketing.', view_journal: 'View All', items: { '1': { category: 'Paid Performance', title: 'The 2026 Meta Algorithm Shift', desc: 'Navigating privacy-first attribution and the rise of autonomous bidding strategies.' }, '2': { category: 'Viral Systems', title: 'TikTok Shop: Ecosystem Mastery', desc: 'How to build a self-sustaining sales machine through short-form storytelling.' }, '3': { category: 'Web Architecture', title: 'UX for High-Ticket Conversions', desc: 'Designing digital experiences that command authority and facilitate trust.' } } },
-    contact: { 
-      title: 'Initiate a Partnership', 
-      subtitle: 'Discuss your objectives with a specialist. We are currently accepting a limited number of new high-impact projects.', 
-      form_name: 'Full Name', 
-      form_phone: 'Phone Number', 
-      form_interest: 'Strategic Interest', 
-      form_vision: 'Business Vision', 
-      form_vision_placeholder: 'Briefly describe your objectives...', 
-      form_submit: 'Send Strategic Inquiry', 
-      sending: 'Sending...', 
+    contact: {
+      title: 'Initiate a Partnership',
+      subtitle: 'Discuss your objectives with a specialist. We are currently accepting a limited number of new high-impact projects.',
+      form_name: 'Full Name',
+      form_phone: 'Phone Number',
+      form_interest: 'Strategic Interest',
+      form_vision: 'Business Vision',
+      form_vision_placeholder: 'Briefly describe your objectives...',
+      form_submit: 'Send',
+      sending: 'Sending...',
       success_title: 'Inquiry Received',
       success_desc: 'Thank you for your interest. A member of our strategy team will review your vision and contact you within 24 hours.',
-      back: 'Back to form' 
+      thank_you_title: 'Thank You',
+      thank_you_message: 'Your inquiry has been received. We will contact you shortly.',
+      back: 'Back to form'
     },
     footer: { rights: '© 2026 Lê Châu Kiệt Private Brand. All Rights Reserved.', privacy: 'Privacy Protocol', agreement: 'Service Agreement' }
   },
@@ -112,19 +114,21 @@ export const translations = {
     philosophy: { title: 'Triết lý Cốt lõi', p1_title: 'Chất lượng Chọn lọc', p1_desc: 'Chúng tôi chỉ tham gia vào các dự án mà chúng tôi có thể mang lại giá trị chuyển đổi, đảm bảo sự chú ý ở cấp độ boutique.', p2_title: 'Tư duy Chiến lược', p2_desc: 'Các quyết định dựa trên dữ liệu và hiểu biết tâm lý, vượt ra ngoài tự động hóa đơn thuần để hướng tới sự tăng trưởng lấy con người làm trung tâm.', p3_title: 'Kết quả Bền vững', p3_desc: 'Xây dựng tài sản và phễu hoạt động nhất quán trong nhiều năm, không chỉ trong các chiến dịch ngắn hạn.', cta_title: 'Sẵn sàng cho một Sự thay đổi?', cta_desc: 'Nâng tầm hiện diện kỹ thuật số của bạn để xứng tầm với chất lượng dịch vụ. Hãy cùng nhau kiến tạo sự tăng trưởng của bạn.', cta_button: 'Đặt lịch tư vấn chiến lược' },
     testimonials: { title: 'Đối tác Chiến lược', items: { '1': { quote: "Cách tiếp cận chiến lược của Kiệt đã giảm 40% CPA của chúng tôi đồng thời tăng gấp đôi điểm cảm tình thương hiệu cao cấp." }, '2': { quote: "Sự chú ý đến từng chi tiết trong việc thiết kế lại hệ sinh thái web là không có đối thủ. Một đối tác thực sự trong kỷ nguyên số." }, '3': { quote: "Sự tăng trưởng TikTok của chúng tôi đạt 100k người theo dõi trung thành chỉ trong vài tuần. Kiệt hiểu cơ chế xã hội hơn bất kỳ ai." } } },
     insights: { title: 'Kiến thức Chọn lọc', subtitle: 'Những góc nhìn chuyên sâu về tương lai của tiếp thị kỹ thuật số.', view_journal: 'Xem tất cả', items: { '1': { category: 'Hiệu suất Trả phí', title: 'Sự thay đổi thuật toán Meta 2026', desc: 'Điều hướng quy trình phân bổ ưu tiên quyền riêng tư và sự trỗi dậy của các chiến lược đấu thầu tự động.' }, '2': { category: 'Hệ thống Lan truyền', title: 'TikTok Shop: Làm chủ hệ sinh thái', desc: 'Cách xây dựng cỗ máy bán hàng tự vận hành thông qua kể chuyện dạng ngắn.' }, '3': { category: 'Kiến trúc Web', title: 'UX cho Chuyển đổi Giá trị cao', desc: 'Thiết kế trải nghiệm kỹ thuật số tạo dựng uy tín và tạo điều kiện cho sự tin tưởng.' } } },
-    contact: { 
-      title: 'Bắt đầu Hợp tác', 
-      subtitle: 'Thảo luận mục tiêu của bạn với chuyên gia. Chúng tôi hiện đang tiếp nhận một số lượng giới hạn các dự án mới có tác động cao.', 
-      form_name: 'Họ và Tên', 
-      form_phone: 'Số điện thoại', 
-      form_interest: 'Mối quan tâm chiến lược', 
-      form_vision: 'Tầm nhìn kinh doanh', 
-      form_vision_placeholder: 'Mô tả ngắn gọn về mục tiêu của bạn...', 
-      form_submit: 'Gửi yêu cầu tư vấn', 
-      sending: 'Đang gửi...', 
+    contact: {
+      title: 'Bắt đầu Hợp tác',
+      subtitle: 'Thảo luận mục tiêu của bạn với chuyên gia. Chúng tôi hiện đang tiếp nhận một số lượng giới hạn các dự án mới có tác động cao.',
+      form_name: 'Họ và Tên',
+      form_phone: 'Số điện thoại',
+      form_interest: 'Mối quan tâm chiến lược',
+      form_vision: 'Tầm nhìn kinh doanh',
+      form_vision_placeholder: 'Mô tả ngắn gọn về mục tiêu của bạn...',
+      form_submit: 'Gửi',
+      sending: 'Đang gửi...',
       success_title: 'Yêu cầu đã được ghi nhận',
       success_desc: 'Cảm ơn sự quan tâm của bạn. Đội ngũ chiến lược của chúng tôi sẽ xem xét tầm nhìn của bạn và liên hệ lại trong vòng 24 giờ.',
-      back: 'Quay lại biểu mẫu' 
+      thank_you_title: 'Cảm ơn bạn',
+      thank_you_message: 'Yêu cầu của bạn đã được gửi thành công. Chúng tôi sẽ liên hệ lại sớm nhất.',
+      back: 'Quay lại biểu mẫu'
     },
     footer: { rights: '© 2026 Lê Châu Kiệt Private Brand. Đã đăng ký bản quyền.', privacy: 'Giao thức Bảo mật', agreement: 'Thỏa thuận Dịch vụ' }
   }

@@ -5,13 +5,16 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAppContext } from '../context/AppContext';
 import { GoogleGenAI, Type } from "@google/genai";
+import Editor from '../components/Editor';
 
 const CRM: React.FC = () => {
-  const { t, insights, addInsight, deleteInsight, language } = useAppContext();
+  const { t, insights, addInsight, updateInsight, deleteInsight, language } = useAppContext();
   const [isAdding, setIsAdding] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
-  
+
   const [formData, setFormData] = useState({
+    slug: '',
     titleEn: '',
     titleVi: '',
     descEn: '',
@@ -23,6 +26,34 @@ const CRM: React.FC = () => {
     imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800'
   });
 
+  const generateSlug = (text: string) => {
+    return text
+      .toString()
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/[^\w\-]+/g, '')
+      .replace(/\-\-+/g, '-')
+      .replace(/^-+/, '')
+      .replace(/-+$/, '');
+  };
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>, lang: 'en' | 'vi') => {
+    const val = e.target.value;
+    setFormData(prev => {
+      const newState = { ...prev };
+      if (lang === 'en') newState.titleEn = val;
+      else newState.titleVi = val;
+
+      // Auto-generate slug from English title if empty, or fallback to Vietnamese
+      if (!prev.slug) {
+        newState.slug = generateSlug(lang === 'en' ? val : (prev.titleEn || val));
+      }
+      return newState;
+    });
+  };
+
   const handleAiSuggest = async () => {
     const apiKey = process.env.NEXT_PUBLIC_API_KEY || process.env.API_KEY;
     if (!apiKey) {
@@ -33,7 +64,7 @@ const CRM: React.FC = () => {
       alert("Please provide at least a title.");
       return;
     }
-    
+
     setAiLoading(true);
     try {
       const ai = new GoogleGenAI({ apiKey });
@@ -58,7 +89,7 @@ const CRM: React.FC = () => {
           }
         }
       });
-      
+
       const data = JSON.parse(response.text || '{}');
       setFormData(prev => ({
         ...prev,
@@ -79,8 +110,19 @@ const CRM: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formData.slug) {
+      alert("Slug is required!");
+      return;
+    }
+    // Check for duplicate slugs only if adding or if changing slug (though slug change logic might need more care)
+    // For simplicity, we disable slug editing in edit mode or strictly check.
+    if (!editingId && insights.some(i => i.id === formData.slug)) {
+      alert("This URL Slug already exists. Please choose another one.");
+      return;
+    }
+
     const newInsight = {
-      id: Date.now().toString(),
+      id: formData.slug,
       category: formData.categoryEn,
       title: formData.titleEn,
       description: formData.descEn,
@@ -91,13 +133,38 @@ const CRM: React.FC = () => {
         vi: { title: formData.titleVi, desc: formData.descVi, cat: formData.categoryVi, content: formData.contentVi }
       }
     };
-    addInsight(newInsight as any);
+
+    if (editingId) {
+      updateInsight(editingId, newInsight as any);
+    } else {
+      addInsight(newInsight as any);
+    }
+
     setIsAdding(false);
-    setFormData({ 
-      titleEn: '', titleVi: '', descEn: '', descVi: '', 
+    setEditingId(null);
+    setFormData({
+      slug: '',
+      titleEn: '', titleVi: '', descEn: '', descVi: '',
       contentEn: '', contentVi: '',
       categoryEn: 'Performance', categoryVi: 'Hiệu suất', imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800'
     });
+  };
+
+  const handleEdit = (insight: any) => {
+    setEditingId(insight.id);
+    setFormData({
+      slug: insight.id,
+      titleEn: insight.localized?.en?.title || insight.title,
+      titleVi: insight.localized?.vi?.title || '',
+      descEn: insight.localized?.en?.desc || insight.description,
+      descVi: insight.localized?.vi?.desc || '',
+      contentEn: insight.localized?.en?.content || insight.content || '',
+      contentVi: insight.localized?.vi?.content || '',
+      categoryEn: insight.localized?.en?.cat || insight.category,
+      categoryVi: insight.localized?.vi?.cat || '',
+      imageUrl: insight.imageUrl
+    });
+    setIsAdding(true);
   };
 
   return (
@@ -108,8 +175,19 @@ const CRM: React.FC = () => {
             <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white mb-2 tracking-tight">{t('crm.title')}</h1>
             <p className="text-slate-500 font-light">{t('crm.subtitle')}</p>
           </div>
-          <button 
-            onClick={() => setIsAdding(!isAdding)}
+          <button
+            onClick={() => {
+              setIsAdding(!isAdding);
+              if (isAdding) { // Closing form
+                setEditingId(null);
+                setFormData({
+                  slug: '',
+                  titleEn: '', titleVi: '', descEn: '', descVi: '',
+                  contentEn: '', contentVi: '',
+                  categoryEn: 'Performance', categoryVi: 'Hiệu suất', imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800'
+                });
+              }
+            }}
             className={`${isAdding ? 'bg-slate-200 dark:bg-white/10 text-slate-500' : 'bg-primary text-white shadow-lg shadow-primary/20'} px-8 py-4 rounded-full font-bold uppercase tracking-widest transition-all flex items-center gap-2`}
           >
             <span className="material-symbols-outlined">{isAdding ? 'close' : 'add'}</span>
@@ -119,7 +197,7 @@ const CRM: React.FC = () => {
 
         <AnimatePresence>
           {isAdding && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
@@ -130,7 +208,7 @@ const CRM: React.FC = () => {
                   <span className="material-symbols-outlined text-primary">edit_note</span>
                   Insight Composer
                 </h3>
-                <button 
+                <button
                   onClick={handleAiSuggest}
                   disabled={aiLoading}
                   type="button"
@@ -140,24 +218,39 @@ const CRM: React.FC = () => {
                   {aiLoading ? 'Synthesizing...' : 'Generate with AI'}
                 </button>
               </div>
-              
+
               <form onSubmit={handleSubmit} className="space-y-10">
+                <div className="space-y-4">
+                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">URL Slug (ID - Cannot be changed in Edit Mode)</label>
+                  <div className="flex items-center gap-2 bg-slate-50 dark:bg-white/5 border-b border-black/10 dark:border-white/10 px-2">
+                    <span className="text-slate-400 text-sm">/insight/</span>
+                    <input
+                      disabled={!!editingId}
+                      className={`w-full bg-transparent border-0 focus:ring-0 text-primary font-bold py-3 outline-none transition-all ${editingId ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      value={formData.slug}
+                      onChange={e => setFormData({ ...formData, slug: generateSlug(e.target.value) })}
+                      placeholder="my-awesome-article"
+                      required
+                    />
+                  </div>
+                </div>
+
                 <div className="grid md:grid-cols-2 gap-10">
                   <div className="space-y-4">
                     <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">{t('crm.form_title_en')}</label>
-                    <input 
+                    <input
                       className="w-full bg-slate-50 dark:bg-white/5 border-0 border-b border-black/10 dark:border-white/10 focus:border-primary focus:ring-0 text-slate-900 dark:text-white py-3 outline-none transition-all px-2"
                       value={formData.titleEn}
-                      onChange={e => setFormData({...formData, titleEn: e.target.value})}
+                      onChange={e => handleTitleChange(e, 'en')}
                       required
                     />
                   </div>
                   <div className="space-y-4">
                     <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">{t('crm.form_title_vi')}</label>
-                    <input 
+                    <input
                       className="w-full bg-slate-50 dark:bg-white/5 border-0 border-b border-black/10 dark:border-white/10 focus:border-primary focus:ring-0 text-slate-900 dark:text-white py-3 outline-none transition-all px-2"
                       value={formData.titleVi}
-                      onChange={e => setFormData({...formData, titleVi: e.target.value})}
+                      onChange={e => handleTitleChange(e, 'vi')}
                       required
                     />
                   </div>
@@ -166,20 +259,20 @@ const CRM: React.FC = () => {
                 <div className="grid md:grid-cols-2 gap-10">
                   <div className="space-y-4">
                     <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">{t('crm.form_desc_en')}</label>
-                    <textarea 
+                    <textarea
                       className="w-full bg-slate-50 dark:bg-white/5 border-0 border-b border-black/10 dark:border-white/10 focus:border-primary focus:ring-0 text-slate-900 dark:text-white py-3 outline-none transition-all px-2 resize-none"
                       rows={2}
                       value={formData.descEn}
-                      onChange={e => setFormData({...formData, descEn: e.target.value})}
+                      onChange={e => setFormData({ ...formData, descEn: e.target.value })}
                     />
                   </div>
                   <div className="space-y-4">
                     <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">{t('crm.form_desc_vi')}</label>
-                    <textarea 
+                    <textarea
                       className="w-full bg-slate-50 dark:bg-white/5 border-0 border-b border-black/10 dark:border-white/10 focus:border-primary focus:ring-0 text-slate-900 dark:text-white py-3 outline-none transition-all px-2 resize-none"
                       rows={2}
                       value={formData.descVi}
-                      onChange={e => setFormData({...formData, descVi: e.target.value})}
+                      onChange={e => setFormData({ ...formData, descVi: e.target.value })}
                     />
                   </div>
                 </div>
@@ -187,31 +280,33 @@ const CRM: React.FC = () => {
                 <div className="grid md:grid-cols-2 gap-10">
                   <div className="space-y-4">
                     <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">{t('crm.form_content_en')}</label>
-                    <textarea 
-                      className="w-full bg-slate-50 dark:bg-white/5 border-0 border-b border-black/10 dark:border-white/10 focus:border-primary focus:ring-0 text-slate-900 dark:text-white py-3 outline-none transition-all px-2 resize-y"
-                      rows={6}
-                      value={formData.contentEn}
-                      onChange={e => setFormData({...formData, contentEn: e.target.value})}
-                    />
+                    <div className="border border-black/10 dark:border-white/10 rounded-xl overflow-hidden shadow-inner">
+                      <Editor
+                        value={formData.contentEn}
+                        onChange={(val) => setFormData(prev => ({ ...prev, contentEn: val }))}
+                        placeholder="Write your article in English..."
+                      />
+                    </div>
                   </div>
                   <div className="space-y-4">
                     <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">{t('crm.form_content_vi')}</label>
-                    <textarea 
-                      className="w-full bg-slate-50 dark:bg-white/5 border-0 border-b border-black/10 dark:border-white/10 focus:border-primary focus:ring-0 text-slate-900 dark:text-white py-3 outline-none transition-all px-2 resize-y"
-                      rows={6}
-                      value={formData.contentVi}
-                      onChange={e => setFormData({...formData, contentVi: e.target.value})}
-                    />
+                    <div className="border border-black/10 dark:border-white/10 rounded-xl overflow-hidden shadow-inner">
+                      <Editor
+                        value={formData.contentVi}
+                        onChange={(val) => setFormData(prev => ({ ...prev, contentVi: val }))}
+                        placeholder="Viết bài viết tiếng Việt..."
+                      />
+                    </div>
                   </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-10 items-end">
                   <div className="space-y-4">
                     <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">{t('crm.form_img')}</label>
-                    <input 
+                    <input
                       className="w-full bg-slate-50 dark:bg-white/5 border-0 border-b border-black/10 dark:border-white/10 focus:border-primary focus:ring-0 text-slate-900 dark:text-white py-3 outline-none transition-all px-2"
                       value={formData.imageUrl}
-                      onChange={e => setFormData({...formData, imageUrl: e.target.value})}
+                      onChange={e => setFormData({ ...formData, imageUrl: e.target.value })}
                     />
                   </div>
                   <div className="flex gap-4">
@@ -239,17 +334,22 @@ const CRM: React.FC = () => {
                 {insights.map(item => {
                   const displayTitle = (item as any).localized?.[language]?.title || item.title;
                   const displayCat = (item as any).localized?.[language]?.cat || item.category;
-                  
+
                   return (
                     <tr key={item.id} className="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors group">
                       <td className="px-10 py-6">
                         <div className="flex items-center gap-4">
                           <div className="w-14 h-14 rounded-2xl overflow-hidden shadow-sm flex-shrink-0">
-                             <img src={item.imageUrl} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                            <img src={item.imageUrl} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
                           </div>
-                          <p className="font-bold text-slate-900 dark:text-white line-clamp-1">
-                            {displayTitle}
-                          </p>
+                          <div className="min-w-0">
+                            <p className="font-bold text-slate-900 dark:text-white line-clamp-1">
+                              {displayTitle}
+                            </p>
+                            <p className="text-[10px] text-slate-400 font-mono mt-1 truncate">
+                              /{item.id}
+                            </p>
+                          </div>
                         </div>
                       </td>
                       <td className="px-10 py-6">
@@ -258,12 +358,20 @@ const CRM: React.FC = () => {
                         </span>
                       </td>
                       <td className="px-10 py-6 text-right">
-                        <button 
-                          onClick={() => deleteInsight(item.id)}
-                          className="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-full transition-all ml-auto"
-                        >
-                          <span className="material-symbols-outlined text-xl">delete</span>
-                        </button>
+                        <div className="flex justify-end gap-3">
+                          <button
+                            onClick={() => handleEdit(item)}
+                            className="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-500/10 rounded-full transition-all"
+                          >
+                            <span className="material-symbols-outlined text-xl">edit</span>
+                          </button>
+                          <button
+                            onClick={() => deleteInsight(item.id)}
+                            className="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-full transition-all"
+                          >
+                            <span className="material-symbols-outlined text-xl">delete</span>
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   );
@@ -271,7 +379,7 @@ const CRM: React.FC = () => {
                 {insights.length === 0 && (
                   <tr>
                     <td colSpan={3} className="px-10 py-32 text-center text-slate-500 italic">
-                       <span className="material-symbols-outlined text-6xl mb-4 block text-slate-200">folder_open</span>
+                      <span className="material-symbols-outlined text-6xl mb-4 block text-slate-200">folder_open</span>
                       {t('crm.empty')}
                     </td>
                   </tr>

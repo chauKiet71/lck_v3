@@ -42,6 +42,41 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
+  const handleSmartClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, linkName?: string) => {
+    const targetHash = href.includes('#') ? href.split('#')[1] : '';
+    const isHome = pathname === '/' || pathname === '';
+
+    // Case 1: Same page anchor click
+    if (isHome && targetHash) {
+      e.preventDefault();
+      const elem = document.getElementById(targetHash);
+      if (elem) {
+        // Use generic scrollIntoView which respects CSS scroll-margin-top
+        elem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.history.pushState(null, '', `/#${targetHash}`);
+        setHash(`#${targetHash}`);
+        if (linkName) setSelectedLink(linkName);
+        setIsMobileOpen(false);
+      }
+      return;
+    }
+
+    // Case 2: Back to Top (Home link) on Home page
+    if (isHome && href === '/') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.history.pushState(null, '', '/');
+      setHash('');
+      if (linkName) setSelectedLink(linkName);
+      setIsMobileOpen(false);
+      return;
+    }
+
+    // Case 3: Navigation to another page or from another page
+    if (linkName) setSelectedLink(linkName);
+    setIsMobileOpen(false);
+  };
+
   const navLinks = [
     { name: t('nav.home') || 'Home', href: '/', hash: '' },
     { name: t('nav.services') || 'Services', href: '/', hash: '#services' },
@@ -69,7 +104,8 @@ const Navbar: React.FC = () => {
               <Link
                 key={link.name}
                 href={href}
-                onClick={() => { if (link.hash) setHash(link.hash); setSelectedLink(link.name); }}
+                scroll={false}
+                onClick={(e) => handleSmartClick(e, href, link.name)}
                 className={`text-[10px] font-bold uppercase tracking-widest transition-all ${isActive ? 'text-primary' : 'text-slate-400 hover:text-white'}`}
               >
                 {link.name}
@@ -111,7 +147,12 @@ const Navbar: React.FC = () => {
             <span className="material-symbols-outlined text-lg">{theme === 'dark' ? 'light_mode' : 'dark_mode'}</span>
           </button>
 
-          <Link href="/#contact" className="bg-white text-navy-deep px-5 md:px-7 py-2.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest hover:bg-primary hover:text-white transition-all shadow-xl shadow-black/20">
+          <Link
+            href="/#contact"
+            scroll={false}
+            onClick={(e) => handleSmartClick(e, '/#contact')}
+            className="bg-white text-navy-deep px-5 md:px-7 py-2.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest hover:bg-primary hover:text-white transition-all shadow-xl shadow-black/20"
+          >
             {t('nav.contact')}
           </Link>
         </div>
@@ -134,7 +175,8 @@ const Navbar: React.FC = () => {
                   <Link
                     key={link.name}
                     href={href}
-                    onClick={() => { if (link.hash) setHash(link.hash); setSelectedLink(link.name); setIsMobileOpen(false); }}
+                    scroll={false}
+                    onClick={(e) => handleSmartClick(e, href, link.name)}
                     className={`text-white font-bold uppercase text-sm ${isActive ? 'text-primary' : 'text-slate-300 hover:text-white'}`}
                   >
                     {link.name}

@@ -11,15 +11,15 @@ export const dynamic = 'force-dynamic';
 export default function InsightDetail() {
   const params = useParams();
   const router = useRouter();
-  
+
   // Type-safe extraction of id from params
   let id = '';
   if (params && typeof params.id === 'string') {
     id = params.id;
   }
-  
+
   const { insights, language, t, theme } = useAppContext();
-  
+
   const insight = insights.find(i => i.id === id);
 
   useEffect(() => {
@@ -38,14 +38,14 @@ export default function InsightDetail() {
   }
 
   const isDynamic = !!(insight as any).localized;
-  const displayData = isDynamic 
-    ? (insight as any).localized[language] 
-    : { 
-        title: t(`insights.items.${insight.id}.title`), 
-        desc: t(`insights.items.${insight.id}.desc`), 
-        cat: t(`insights.items.${insight.id}.category`),
-        content: insight.content || (insight as any).description 
-      };
+  const displayData = isDynamic
+    ? (insight as any).localized[language]
+    : {
+      title: t(`insights.items.${insight.id}.title`),
+      desc: t(`insights.items.${insight.id}.desc`),
+      cat: t(`insights.items.${insight.id}.category`),
+      content: insight.content || (insight as any).description
+    };
 
   const relatedInsights = insights.filter(i => i.id !== id).slice(0, 2);
 
@@ -53,21 +53,21 @@ export default function InsightDetail() {
     <div className="bg-white dark:bg-navy-deep min-h-screen transition-colors duration-300">
       {/* Hero Section */}
       <div className="relative h-[70vh] w-full overflow-hidden">
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center scale-105 blur-sm opacity-30 dark:opacity-20"
           style={{ backgroundImage: `url("${insight.imageUrl}")` }}
         ></div>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/50 to-white dark:via-navy-deep/50 dark:to-navy-deep"></div>
-        
+
         <div className="relative h-full max-w-5xl mx-auto px-6 flex flex-col justify-end pb-20">
-          <button 
+          <button
             onClick={() => router.back()}
             className="w-fit mb-12 flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-primary transition-colors group"
           >
             <span className="material-symbols-outlined text-sm group-hover:-translate-x-1 transition-transform">arrow_back</span>
             {t('insight_detail.back')}
           </button>
-          
+
           <div className="space-y-6">
             <span className="px-4 py-1.5 bg-primary/10 text-primary rounded-full text-[10px] font-bold uppercase tracking-[0.2em] inline-block">
               {displayData.cat || insight.category}
@@ -89,17 +89,15 @@ export default function InsightDetail() {
         <div className="aspect-[16/9] rounded-[2.5rem] overflow-hidden mb-16 shadow-2xl border border-black/5 dark:border-white/5">
           <img src={insight.imageUrl} alt={displayData.title} className="w-full h-full object-cover" />
         </div>
-        
+
         <div className="prose prose-lg dark:prose-invert prose-slate max-w-none">
           <p className="text-2xl font-light text-slate-600 dark:text-slate-300 leading-relaxed italic mb-12 border-l-4 border-primary pl-8">
             {displayData.desc || insight.description}
           </p>
-          
+
           <div className="text-slate-700 dark:text-slate-400 space-y-8 text-lg leading-[1.8] font-light">
             {displayData.content ? (
-              displayData.content.split('\n').map((para: string, idx: number) => (
-                <p key={idx}>{para}</p>
-              ))
+              <div dangerouslySetInnerHTML={{ __html: displayData.content }} />
             ) : (
               <>
                 <p>The digital landscape of 2026 demands a radical shift in how we perceive brand-consumer interaction. As traditional attribution models fade into obsolescence, the rise of autonomous bidding and privacy-first engineering becomes the cornerstone of any successful digital strategy.</p>
@@ -132,10 +130,10 @@ export default function InsightDetail() {
           </h2>
           <div className="grid md:grid-cols-2 gap-12">
             {relatedInsights.map(item => {
-              const relData = !!(item as any).localized 
-                ? (item as any).localized[language] 
+              const relData = !!(item as any).localized
+                ? (item as any).localized[language]
                 : { title: t(`insights.items.${item.id}.title`), cat: t(`insights.items.${item.id}.category`) };
-              
+
               return (
                 <Link href={`/insight/${item.id}`} key={item.id} className="group">
                   <div className="aspect-[16/9] rounded-3xl overflow-hidden mb-6 border border-black/5 dark:border-white/5">

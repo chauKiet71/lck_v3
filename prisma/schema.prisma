@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Insight {
+  id          String   @id // This will be our slug
+  title       String
+  category    String
+  description String
+  content     String
+  imageUrl    String
+  localized   String   // Storing JSON string for multi-language support (Simple & Portable)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Optional relation to Category
+  categoryId  String?
+  categoryRel Category? @relation(fields: [categoryId], references: [id])
+}
+
+model Admin {
+  id       String @id @default(cuid())
+  email    String @unique
+  password String // Hashed password
+  name     String?
+}
+
+model Contact {
+  id        String   @id @default(cuid())
+  fullName  String
+  phone     String?
+  email     String?
+  note      String?
+  status    String   @default("pending") // pending, read, contacted
+  createdAt DateTime @default(now())
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  name      String
+  slug      String    @unique
+  insights  Insight[]
+}

@@ -14,6 +14,7 @@ interface AppContextType {
   t: (path: string) => string;
   insights: Insight[];
   addInsight: (insight: Insight) => void;
+  updateInsight: (id: string, insight: Insight) => void;
   deleteInsight: (id: string) => void;
 }
 
@@ -23,31 +24,130 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [language, setLanguage] = useState<Language>('vi');
   const [theme, setTheme] = useState<Theme>('dark');
   const [insights, setInsights] = useState<Insight[]>(DEFAULT_INSIGHTS);
+  const [isInitialized, setIsInitialized] = useState(false);
 
-  // Client-side only initialization
+  // Client-side initialization
   useEffect(() => {
     const savedLang = localStorage.getItem('app-lang') as Language;
     if (savedLang) setLanguage(savedLang);
-    
+
     const savedTheme = localStorage.getItem('app-theme') as Theme;
     if (savedTheme) setTheme(savedTheme);
 
-    const savedInsights = localStorage.getItem('app-insights');
-    if (savedInsights) setInsights(JSON.parse(savedInsights));
+    // Fetch insights from API (Database)
+    const fetchInsights = async () => {
+      try {
+        const res = await fetch('/api/insights');
+        if (res.ok) {
+          const data = await res.json();
+          // If DB is empty, use default and sync? Or just rely on user adding content?
+          // For now, if DB has data, use it. If not, maybe use default?
+          // Let's stick to DB source of truth. If empty, it's empty.
+          if (data.length > 0) {
+            setInsights(data);
+          } else {
+            // Auto-Migration: If DB is empty, check localStorage
+            const localData = localStorage.getItem('app-insights');
+            if (localData) {
+              try {
+                const parsedLocal = JSON.parse(localData);
+                if (Array.isArray(parsedLocal) && parsedLocal.length > 0) {
+                  // Migrate one by one
+                  const migrated: Insight[] = [];
+                  for (const item of parsedLocal) {
+                    const res = await fetch('/api/insights', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify(item)
+                    });
+                    if (res.ok) {
+                      const saved = await res.json();
+                      migrated.push(saved);
+                    }
+                  }
+                  if (migrated.length > 0) {
+                    setInsights(migrated);
+                    console.log("Migrated insights from localStorage to Database");
+                  } else {
+                    setInsights([]);
+                  }
+                } else {
+                  setInsights([]);
+                }
+              } catch (e) {
+                console.error("Migration failed", e);
+                setInsights([]);
+              }
+            } else {
+              setInsights([]);
+            }
+          }
+        }
+      } catch (e) {
+        console.error("Failed to fetch insights", e);
+      } finally {
+        setIsInitialized(true);
+      }
+    };
+
+    fetchInsights();
   }, []);
 
+  // Persist Theme/Lang only
   useEffect(() => {
+    if (!isInitialized) return;
     localStorage.setItem('app-lang', language);
     localStorage.setItem('app-theme', theme);
-    localStorage.setItem('app-insights', JSON.stringify(insights));
-    
+
     const root = window.document.documentElement;
     theme === 'dark' ? root.classList.add('dark') : root.classList.remove('dark');
-  }, [language, theme, insights]);
+  }, [language, theme, isInitialized]);
 
   const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-  const addInsight = (newInsight: Insight) => setInsights(prev => [newInsight, ...prev]);
-  const deleteInsight = (id: string) => setInsights(prev => prev.filter(item => item.id !== id));
+
+  const addInsight = async (newInsight: Insight) => {
+    try {
+      const res = await fetch('/api/insights', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newInsight)
+      });
+      if (res.ok) {
+        const savedInsight = await res.json();
+        setInsights(prev => [savedInsight, ...prev]);
+      }
+    } catch (e) {
+      console.error("Failed to add insight", e);
+      alert("Failed to save to database");
+    }
+  };
+
+  const updateInsight = async (id: string, updatedInsight: Insight) => {
+    try {
+      const res = await fetch(`/api/insights/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedInsight)
+      });
+      if (res.ok) {
+        const savedInsight = await res.json();
+        setInsights(prev => prev.map(item => item.id === id ? savedInsight : item));
+      }
+    } catch (e) {
+      console.error("Failed to update insight", e);
+      alert("Failed to update database");
+    }
+  };
+
+  const deleteInsight = async (id: string) => {
+    try {
+      await fetch(`/api/insights/${id}`, { method: 'DELETE' });
+      setInsights(prev => prev.filter(item => item.id !== id));
+    } catch (e) {
+      console.error("Failed to delete insight", e);
+      alert("Failed to delete from database");
+    }
+  };
 
   const t = (path: string): string => {
     const keys = path.split('.');
@@ -60,7 +160,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   };
 
   return (
-    <AppContext.Provider value={{ language, setLanguage, theme, toggleTheme, t, insights, addInsight, deleteInsight }}>
+    <AppContext.Provider value={{ language, setLanguage, theme, toggleTheme, t, insights, addInsight, updateInsight, deleteInsight }}>
       {children}
     </AppContext.Provider>
   );
@@ -75,13 +175,14 @@ export const useAppContext = () => {
     if (typeof window === 'undefined') {
       return {
         language: 'vi' as Language,
-        setLanguage: () => {},
+        setLanguage: () => { },
         theme: 'dark' as Theme,
-        toggleTheme: () => {},
+        toggleTheme: () => { },
         t: (path: string) => path,
         insights: DEFAULT_INSIGHTS,
-        addInsight: () => {},
-        deleteInsight: () => {},
+        addInsight: () => { },
+        updateInsight: () => { },
+        deleteInsight: () => { },
       } as AppContextType;
     }
 
