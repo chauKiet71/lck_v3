@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
+// Define helper types to infer models from the Prisma Client instance
+type InsightModel = NonNullable<Awaited<ReturnType<typeof prisma.insight.findFirst>>>;
+type CategoryModel = NonNullable<Awaited<ReturnType<typeof prisma.category.findFirst>>>;
+
 export async function GET() {
     try {
         const insights = await prisma.insight.findMany({
@@ -9,10 +13,18 @@ export async function GET() {
         });
 
         // Parse the 'localized' JSON string back to object
-        const parsedInsights = insights.map(insight => ({
-            ...insight,
-            localized: JSON.parse(insight.localized)
-        }));
+        const parsedInsights = insights.map((insight: InsightModel & { categoryRel: CategoryModel | null }) => {
+            let parsedLoc = {};
+            try {
+                parsedLoc = JSON.parse(insight.localized);
+            } catch (e) {
+                // Fallback or empty if parse fails
+            }
+            return {
+                ...insight,
+                localized: parsedLoc
+            };
+        });
 
         return NextResponse.json(parsedInsights);
     } catch (error) {
