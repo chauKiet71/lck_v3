@@ -9,8 +9,8 @@ import Insights from '../components/Insights';
 import Contact from '../components/Contact';
 
 export const metadata = {
-  title: 'Lê Châu Kiệt - Luxury Digital Strategist & Growth Engineer',
-  description: 'Tư vấn chiến lược Facebook Ads, TikTok Shop và Kiến trúc Web 2026 cho thương hiệu cao cấp.',
+  title: 'Lê Châu Kiệt – Chia Sẻ Kiến Thức Công Nghệ, Digital Marketing & MMO',
+  description: 'Chia sẻ kiến thức Công nghệ, Digital Marketing và MMO thực chiến từ Lê Châu Kiệt. Học dễ hiểu, áp dụng được, phù hợp người mới bắt đầu',
 };
 
 export default function Home() {

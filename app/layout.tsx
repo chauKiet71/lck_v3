@@ -9,15 +9,19 @@ import './globals.css';
 
 export const metadata = {
   title: {
-    default: 'Lê Châu Kiệt | Luxury Digital Strategist',
+    default: 'Lê Châu Kiệt – Chia Sẻ Kiến Thức Công Nghệ, Digital Marketing & MMO',
     template: '%s | Lê Châu Kiệt'
   },
-  description: 'Chiến lược kỹ thuật số cao cấp, tối ưu tăng trưởng bền vững cho thương hiệu.',
+  description: 'Chia sẻ kiến thức Công nghệ, Digital Marketing và MMO thực chiến từ Lê Châu Kiệt. Học dễ hiểu, áp dụng được, phù hợp người mới bắt đầu',
   openGraph: {
     type: 'website',
     locale: 'vi_VN',
     url: 'https://lechaukiet.com/',
     siteName: 'Lê Châu Kiệt Strategy',
+  },
+  icons: {
+    icon: 'https://sf-static.upanhlaylink.com/img/image_2026020594684ce0352ead3ab5bbb9ccde9b70b4.jpg',
+    apple: 'https://sf-static.upanhlaylink.com/img/image_2026020594684ce0352ead3ab5bbb9ccde9b70b4.jpg',
   },
 };
 

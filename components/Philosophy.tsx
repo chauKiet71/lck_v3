@@ -44,7 +44,7 @@ const Philosophy: React.FC = () => {
             ))}
           </div>
         </div>
-        
+
         <div className="flex-1 w-full">
           <div className="bg-slate-900 dark:bg-navy-surface p-16 rounded-[3rem] text-white relative overflow-hidden border border-white/5 shadow-2xl">
             <div className="absolute top-0 right-0 w-48 h-48 bg-primary/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
@@ -52,7 +52,15 @@ const Philosophy: React.FC = () => {
             <p className="text-slate-400 mb-10 leading-relaxed font-light">
               {t('philosophy.cta_desc')}
             </p>
-            <button className="bg-white text-navy-deep px-10 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-primary hover:text-white transition-colors">
+            <button
+              onClick={() => {
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="bg-white text-navy-deep px-10 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-primary hover:text-white transition-colors"
+            >
               {t('philosophy.cta_button')}
             </button>
           </div>

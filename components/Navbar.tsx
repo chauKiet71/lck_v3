@@ -89,9 +89,11 @@ const Navbar: React.FC = () => {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-navy-deep/90 backdrop-blur-xl border-b border-white/5 py-4' : 'bg-transparent py-6'}`}>
       <div className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 bg-gradient-to-br from-primary to-blue-700 rounded-full flex items-center justify-center text-white shadow-lg">
-            <span className="material-symbols-outlined font-bold">diamond</span>
-          </div>
+          <img
+            src="https://sf-static.upanhlaylink.com/img/image_2026020594684ce0352ead3ab5bbb9ccde9b70b4.jpg"
+            alt="Lê Châu Kiệt Logo"
+            className="w-10 h-10 rounded-full object-cover shadow-lg"
+          />
           <h1 className="text-xl font-extrabold tracking-tight text-white uppercase hidden sm:block">Lê Châu Kiệt</h1>
         </Link>
 

@@ -56,33 +56,49 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     id: '1',
     quote: "Kiệt's strategic approach reduced our CPA by 40% while simultaneously doubling our luxury brand sentiment scores.",
-    author: 'Marcus Chen',
-    role: 'CEO, LuxeDecor',
-    avatarUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDPV847L5-xQ5hHGk6ZJ7H_YzAIt-IZNA1AfkmeYTbeSjOX_j3-9iyPJOdwoS-OTByiQyRYJX6PQCr97fs4lSD4y1nDxNMgCH9fVBIRoyE6SMV5CGwwkJ2WhuQ5pqzvNTacxeO1gjsjcMFxobTL5-DFkmIWrotrhpgNysSt7e8rN4WxwqA-uskjk_XQjG76NO6tKpgMao3o4i1TqohUh-kIZojBx4hjlyfgUZva2Sf6aKQNYmssMzWW9SH8PTV-JOzpAFg9wUkbSTU',
+    author: 'Hoang Anh Vu',
+    role: 'Marketing Executive',
+    avatarUrl: 'https://sf-static.upanhlaylink.com/img/image_20260204fda6a8b9d392c757ff1f3e949d8c2a28.jpg',
     rating: 5
   },
   {
     id: '2',
     quote: "The attention to detail in our web ecosystem redesign was unparalleled. A true partner in the digital age.",
-    author: 'Sophia Nguyen',
-    role: 'Founder, Lichi Studio',
-    avatarUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB1tB28S8HdhziuP5nDto-q1o_cYMFzFPQIKYPcIxIIwefjkq3N9Pgl4dl6sWIuwPyIykAEITPhiqmUDpBR2jLcJlIKDt012t8pq6nAT3RnYg81bW3wvt6y7omyMMMUSyclxof4ZQiF7dyDUFD__FXI4Icxdssrd_6g6BmxmKCY-2KmuWLBCtzz8z662nY2tSBaBtFp_uNvivQqXPiUWkEaIBpGHO11r_GTx2n36KGD8_O-pzs8XTt2Zsim3MLzF7GkJyuBkmEqsJs',
+    author: 'Ly Ngo Luu',
+    role: 'Business Support',
+    avatarUrl: 'https://sf-static.upanhlaylink.com/img/image_202602044f01ac6ce28254fc273262992426e050.jpg',
     rating: 5
   },
   {
     id: '3',
     quote: "Our TikTok growth reached 100k engaged followers within weeks. Kiệt understands social mechanics like no other.",
-    author: 'Adrian Hoang',
-    role: 'Director, TechReview',
-    avatarUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBfLIPx9wqm4YQtCrBtkiJZH5Cgj5qa_Vx_vqwhfVQ9jWPryPHkLyJ5aUzdqhpZ5Rxp3ojphedNskIwUjUHxC6rh7ClNvkUWxNqXjQDFrb1wV9u8Zp_HPDvwFvpcMO76dyEozt0cC7d2FT9HgL70_7QdGAQxA_qvChwxYzqWWKqBHznfsS_Yqm9fjSx3-Z6IKcvLK3osJ8MmFbhLeoe3Zpgub-lJue9kHM02hhlcE3fOVarXQXGKiudzLTYcvuxrmsLLW_3Q_lFXAQ',
+    author: 'Minh Nguyen',
+    role: 'Digital Marketing',
+    avatarUrl: 'https://sf-static.upanhlaylink.com/img/image_20260204196170793b824773645632c65225cef1.jpg',
     rating: 5
   },
   {
     id: '4',
     quote: "Scale and precision are hard to balance, but this partnership made it look easy. Our revenue grew 3x in 12 months.",
-    author: 'Elena Rossi',
+    author: 'Business Analyst',
     role: 'Marketing Lead, Milan Fashion',
-    avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200',
+    avatarUrl: 'https://sf-static.upanhlaylink.com/img/image_20260204cb33320ec759a81e1b1241ab89520233.jpg',
+    rating: 5
+  },
+  {
+    id: '5',
+    quote: "Scale and precision are hard to balance, but this partnership made it look easy. Our revenue grew 3x in 12 months.",
+    author: 'Thuy Diem',
+    role: 'Business',
+    avatarUrl: 'https://sf-static.upanhlaylink.com/img/image_2026020493c387303ed75ad618c85bc24b53df58.jpg',
+    rating: 5
+  },
+  {
+    id: '6',
+    quote: "Scale and precision are hard to balance, but this partnership made it look easy. Our revenue grew 3x in 12 months.",
+    author: 'Hoang Ngan',
+    role: 'Employer Branding',
+    avatarUrl: 'https://sf-static.upanhlaylink.com/img/image_20260204c2def7a75117a7d16d7692c4190f54e9.jpg',
     rating: 5
   }
 ];

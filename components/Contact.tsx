@@ -65,8 +65,8 @@ const Contact: React.FC = () => {
                 <span className="material-symbols-outlined">mail</span>
               </div>
               <div>
-                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Inquiries</p>
-                <p className="font-bold text-slate-900 dark:text-white text-lg">concierge@lechaukiet.com</p>
+                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{t('contact.info_email')}</p>
+                <p className="font-bold text-slate-900 dark:text-white text-lg">lckiet.mkt7014@gmail.com</p>
               </div>
             </div>
             <div className="flex items-center gap-6 group">
@@ -74,8 +74,8 @@ const Contact: React.FC = () => {
                 <span className="material-symbols-outlined">call</span>
               </div>
               <div>
-                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Strategic Line</p>
-                <p className="font-bold text-slate-900 dark:text-white text-lg">+84 90 123 4567</p>
+                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{t('contact.info_phone')}</p>
+                <p className="font-bold text-slate-900 dark:text-white text-lg">+84 327 142 982</p>
               </div>
             </div>
           </div>
@@ -126,7 +126,7 @@ const Contact: React.FC = () => {
                 onSubmit={handleSubmit}
               >
                 <div className="space-y-3">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Full Name</label>
+                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">{t('contact.form_name')}</label>
                   <input
                     type="text"
                     className="w-full px-0 py-3 bg-transparent border-0 border-b border-black/10 dark:border-white/10 focus:border-transparent focus:outline-[0px] focus:ring-0 transition-all text-slate-900 dark:text-white placeholder-slate-300 dark:placeholder-slate-700"
@@ -138,7 +138,7 @@ const Contact: React.FC = () => {
 
                 <div className="grid md:grid-cols-2 gap-8">
                   <div className="space-y-3">
-                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Phone Number</label>
+                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">{t('contact.form_phone')}</label>
                     <input
                       type="tel"
                       className="w-full px-0 py-3 bg-transparent border-0 border-b border-black/10 dark:border-white/10 focus:border-transparent focus:outline-[0px] focus:ring-0 transition-all text-slate-900 dark:text-white placeholder-slate-300 dark:placeholder-slate-700"
@@ -148,7 +148,7 @@ const Contact: React.FC = () => {
                     />
                   </div>
                   <div className="space-y-3">
-                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Email</label>
+                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">{t('contact.form_email')}</label>
                     <input
                       type="email"
                       className="w-full px-0 py-3 bg-transparent border-0 border-b border-black/10 dark:border-white/10 focus:border-transparent focus:outline-[0px] focus:ring-0 transition-all text-slate-900 dark:text-white placeholder-slate-300 dark:placeholder-slate-700"
@@ -160,7 +160,7 @@ const Contact: React.FC = () => {
                 </div>
 
                 <div className="space-y-3">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Note (Optional)</label>
+                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">{t('contact.form_note')}</label>
                   <textarea
                     rows={3}
                     className="w-full px-0 py-3 bg-transparent border-0 border-b border-black/10 dark:border-white/10 focus:border-transparent focus:outline-[0px] focus:ring-0 transition-all text-slate-900 dark:text-white placeholder-slate-300 dark:placeholder-slate-700 resize-none"

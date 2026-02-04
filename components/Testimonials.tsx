@@ -38,7 +38,7 @@ const Testimonials: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
           <div className="max-w-xl">
-            <motion.h2 
+            <motion.h2
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -46,19 +46,19 @@ const Testimonials: React.FC = () => {
             >
               {t('testimonials.title')}
             </motion.h2>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
               className="text-slate-500 dark:text-slate-400 font-light"
             >
-              Những tiếng nói từ các nhà lãnh đạo đòi hỏi sự xuất sắc về kỹ thuật số và tăng trưởng có thể đo lường được.
+              {t('testimonials.subtitle')}
             </motion.p>
           </div>
-          
+
           <div className="flex gap-4">
-            <button 
+            <button
               onClick={prevSlide}
               className="w-14 h-14 rounded-full border border-black/10 dark:border-white/10 flex items-center justify-center text-slate-900 dark:text-white hover:bg-primary hover:border-primary hover:text-white transition-all active:scale-90 group disabled:opacity-30"
               aria-label="Previous testimonial"
@@ -66,7 +66,7 @@ const Testimonials: React.FC = () => {
             >
               <span className="material-symbols-outlined group-hover:-translate-x-1 transition-transform">west</span>
             </button>
-            <button 
+            <button
               onClick={nextSlide}
               className="w-14 h-14 rounded-full border border-black/10 dark:border-white/10 flex items-center justify-center text-slate-900 dark:text-white hover:bg-primary hover:border-primary hover:text-white transition-all active:scale-90 group disabled:opacity-30"
               aria-label="Next testimonial"
@@ -80,14 +80,14 @@ const Testimonials: React.FC = () => {
         {/* Slider Container - Hidden overflow to clip sliding boxes */}
         <div className="relative overflow-hidden">
           <div className="mx-[-12px] lg:mx-[-16px]">
-            <motion.div 
+            <motion.div
               className="flex"
               animate={{ x: `-${currentIndex * (100 / itemsPerView)}%` }}
               transition={{ type: "spring", stiffness: 200, damping: 25 }}
             >
               {TESTIMONIALS.map((testimonial) => (
-                <div 
-                  key={testimonial.id} 
+                <div
+                  key={testimonial.id}
                   style={{ minWidth: `${100 / itemsPerView}%` }}
                   className="px-3 lg:px-4"
                 >
@@ -102,10 +102,10 @@ const Testimonials: React.FC = () => {
                         "{t(`testimonials.items.${testimonial.id}.quote`) || testimonial.quote}"
                       </p>
                     </div>
-                    
+
                     <div className="flex items-center gap-4">
-                      <div 
-                        className="w-14 h-14 rounded-2xl bg-slate-200 dark:bg-slate-800 bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700 border border-black/5 dark:border-white/5" 
+                      <div
+                        className="w-14 h-14 rounded-2xl bg-slate-200 dark:bg-slate-800 bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700 border border-black/5 dark:border-white/5"
                         style={{ backgroundImage: `url("${testimonial.avatarUrl}")` }}
                       ></div>
                       <div>
@@ -119,7 +119,7 @@ const Testimonials: React.FC = () => {
             </motion.div>
           </div>
         </div>
-        
+
         {/* Pagination Dots */}
         <div className="flex justify-center gap-2 mt-12">
           {Array.from({ length: maxIndex + 1 }).map((_, i) => (
