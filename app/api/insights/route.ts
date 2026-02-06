@@ -28,7 +28,8 @@ export async function GET() {
 
         return NextResponse.json(parsedInsights);
     } catch (error) {
-        return NextResponse.json({ error: 'Failed to fetch insights' }, { status: 500 });
+        console.error("Error fetching insights:", error);
+        return NextResponse.json({ error: 'Failed to fetch insights', details: error instanceof Error ? error.message : String(error) }, { status: 500 });
     }
 }
 

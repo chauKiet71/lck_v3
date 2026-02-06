@@ -8,17 +8,24 @@ type Props = {
 }
 
 async function getInsight(id: string) {
-  const insight = await prisma.insight.findUnique({
-    where: { id },
-  });
+  try {
+    const insight = await prisma.insight.findUnique({
+      where: { id },
+    });
 
-  if (insight && insight.localized) {
-    try {
-      (insight as any).localized = JSON.parse(insight.localized);
-    } catch (e) { }
+    if (insight && insight.localized) {
+      try {
+        (insight as any).localized = JSON.parse(insight.localized);
+      } catch (e) {
+        console.error("Error parsing localized JSON:", e);
+      }
+    }
+
+    return insight;
+  } catch (error) {
+    console.error("Error getting insight:", error);
+    return null;
   }
-
-  return insight;
 }
 
 export async function generateMetadata(

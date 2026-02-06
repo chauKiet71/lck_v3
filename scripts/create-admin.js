@@ -9,12 +9,17 @@ const path = require('path');
 try {
     const envPath = path.resolve(__dirname, '../.env');
     if (fs.existsSync(envPath)) {
-        const envFile = fs.readFileSync(envPath, 'utf8');
-        envFile.split('\n').forEach(line => {
-            const parts = line.split('=');
-            if (parts.length >= 2) {
-                const key = parts[0].trim();
-                let value = parts.slice(1).join('=').trim();
+        const envConfig = fs.readFileSync(envPath, 'utf8');
+        envConfig.split('\n').forEach(line => {
+            // Trim line to handle leading whitespace
+            const trimmedLine = line.trim();
+            // Skip comments and empty lines
+            if (!trimmedLine || trimmedLine.startsWith('#')) return;
+
+            const match = trimmedLine.match(/^([^=]+)=(.*)$/);
+            if (match) {
+                const key = match[1].trim();
+                let value = match[2].trim();
                 if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
                     value = value.slice(1, -1);
                 }
@@ -22,7 +27,7 @@ try {
             }
         });
     }
-} catch (e) { }
+} catch (e) { console.error("Error loading .env:", e); }
 
 const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({ connectionString });
