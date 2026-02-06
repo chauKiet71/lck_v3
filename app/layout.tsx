@@ -16,7 +16,7 @@ export const metadata = {
   openGraph: {
     type: 'website',
     locale: 'vi_VN',
-    url: 'https://lechaukiet.com/',
+    url: 'https://sf-static.upanhlaylink.com/img/image_20260206483744eab36d28171909f3a8dc562f15.jpg',
     siteName: 'Lê Châu Kiệt Strategy',
   },
   icons: {

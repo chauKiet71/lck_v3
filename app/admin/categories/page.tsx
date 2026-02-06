@@ -71,7 +71,7 @@ export default function AdminCategories() {
 
     const handleDelete = async (id: string, count: number) => {
         if (count > 0) {
-            alert(`Cannot delete category with ${count} insights attached.`);
+            alert(`Cannot delete category with ${count} news articles attached.`);
             return;
         }
         if (!confirm('Are you sure you want to delete this category?')) return;
@@ -134,7 +134,7 @@ export default function AdminCategories() {
                     <div className="flex justify-between items-center mb-10">
                         <div>
                             <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Categories</h1>
-                            <p className="text-slate-500">Manage insight content structure.</p>
+                            <p className="text-slate-500">Manage news content structure.</p>
                         </div>
                     </div>
 

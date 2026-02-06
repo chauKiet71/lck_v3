@@ -81,7 +81,7 @@ const Navbar: React.FC = () => {
     { name: t('nav.home') || 'Home', href: '/', hash: '' },
     { name: t('nav.services') || 'Services', href: '/', hash: '#services' },
     { name: t('nav.about') || 'About', href: '/', hash: '#about' },
-    { name: t('nav.insights') || 'Insights', href: '/', hash: '#insights' },
+    { name: t('nav.insights') || 'Insights', href: '/', hash: '#news' },
     // { name: t('nav.crm') || 'CRM', href: '/crm', hash: '' },
   ];
 
@@ -94,7 +94,7 @@ const Navbar: React.FC = () => {
             alt="Lê Châu Kiệt Logo"
             className="w-10 h-10 rounded-full object-cover shadow-lg"
           />
-          <h1 className="text-xl font-extrabold tracking-tight text-white uppercase hidden sm:block">Lê Châu Kiệt</h1>
+          <h1 className="text-xl font-extrabold tracking-tight text-white uppercase hidden sm:block">{t('brand')}</h1>
         </Link>
 
         <nav className="hidden lg:flex items-center gap-10">

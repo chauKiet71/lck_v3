@@ -82,7 +82,7 @@ const AdminInsights: React.FC = () => {
             const ai = new GoogleGenAI({ apiKey });
             const response = await ai.models.generateContent({
                 model: 'gemini-2.0-flash-exp', // Updated model
-                contents: `Create a professional digital strategy insight for a luxury consultant website.
+                contents: `Create a professional digital strategy news article for a luxury consultant website.
         Subject: ${formData.titleEn || formData.titleVi}
         Tone: Analytical, Strategic, Elite.`,
                 config: {
@@ -195,8 +195,8 @@ const AdminInsights: React.FC = () => {
         <div className="bg-white dark:bg-navy-surface rounded-3xl p-8 shadow-sm">
             <div className="flex justify-between items-center mb-10">
                 <div>
-                    <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">News & Insights</h1>
-                    <p className="text-slate-500">Manage your strategic articles.</p>
+                    <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">News Management</h1>
+                    <p className="text-slate-500">Manage your strategic news articles.</p>
                 </div>
 
                 <button
@@ -246,7 +246,7 @@ const AdminInsights: React.FC = () => {
                                     <div className="space-y-2">
                                         <label className="text-xs font-bold text-slate-400 uppercase">URL Slug / ID</label>
                                         <div className="flex items-center gap-2 bg-white dark:bg-black/20 p-3 rounded-lg border border-black/5 dark:border-white/10">
-                                            <span className="text-slate-400 text-sm">/insight/</span>
+                                            <span className="text-slate-400 text-sm">/news/</span>
                                             <input
                                                 disabled={!!editingId}
                                                 className={`w-full bg-transparent outline-none text-slate-900 dark:text-white font-mono ${editingId ? 'opacity-50' : ''}`}
@@ -381,7 +381,7 @@ const AdminInsights: React.FC = () => {
                         })}
                     </tbody>
                 </table>
-                {insights.length === 0 && <p className="text-center text-slate-400 py-10 italic">No insights found.</p>}
+                {insights.length === 0 && <p className="text-center text-slate-400 py-10 italic">No news found.</p>}
             </div>
         </div>
     );

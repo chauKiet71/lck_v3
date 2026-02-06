@@ -1,6 +1,7 @@
 
 export const translations = {
   en: {
+    brand: 'LE CHAU KIET',
     nav: {
       home: 'Home',
       about: 'About',
@@ -20,7 +21,7 @@ export const translations = {
     crm: {
       title: 'Strategic Control Center',
       subtitle: 'Manage your global digital insights and news.',
-      add_new: 'Compose Insight',
+      add_new: 'Compose News',
       table_title: 'Article Name',
       table_cat: 'Category',
       table_actions: 'Actions',
@@ -32,12 +33,12 @@ export const translations = {
       form_content_vi: 'Full Content (Vietnamese)',
       form_cat: 'Category',
       form_img: 'Image URL',
-      btn_save: 'Publish Insight',
+      btn_save: 'Publish News',
       btn_cancel: 'Cancel',
-      empty: 'No insights found. Start creating.'
+      empty: 'No news found. Start creating.'
     },
     insight_detail: {
-      back: 'Back to Insights',
+      back: 'Back to News',
       related: 'Related Perspectives',
       reading_time: '5 min read',
       share: 'Share Protocol'
@@ -47,7 +48,7 @@ export const translations = {
     services: { title: 'Technical Solutions', subtitle: 'Technical solutions in digital marketing that optimize systems, data, and performance across channels.', items: { 'paid-social': { title: 'Advertising Ads', desc: 'Multi-platform advertising services to reach the right audience, optimize budget and boost conversions.' }, 'tiktok': { title: 'Social Resources', desc: 'Providing quality social resources including Via, ad accounts, groups, fanpages and TikTok channels.' }, 'web-arch': { title: 'Website – Software', desc: 'Website and custom software development to support sales, management and business automation.' }, 'strategic-adv': { title: 'Seeding Manual', desc: 'Manual seeding with real interactions to build trust, increase engagement and influence buyers.' } } },
     philosophy: { title: 'The Core', p1_title: 'Selective Quality', p1_desc: 'I only engage with projects where i can deliver transformational value, ensuring boutique-level attention.', p2_title: 'Strategic Mindset', p2_desc: 'Decisions backed by data and psychological insights, moving beyond simple automation to human-centric growth.', p3_title: 'Sustainable Results', p3_desc: 'Xây dựng tài sản và phễu hoạt động nhất quán trong nhiều năm, không chỉ trong các chiến dịch ngắn hạn.', cta_title: 'Ready for a Paradigm Shift?', cta_desc: 'Elevate your digital presence to match the quality of your services. Let\'s engineer your growth together.', cta_button: 'CONSULT NOW' },
     testimonials: { title: 'Customer Reviews', subtitle: 'Real feedback from people who trust me.', items: { '1': { quote: "Effective ads with accurate targeting, optimized costs and clear growth in orders." }, '2': { quote: "Professional ads team, close campaign monitoring and fast support when adjustments were needed." }, '3': { quote: "Quality social resources including ad accounts, fanpages and groups, easy to deploy with few issues." }, '4': { quote: "Well-designed, fast-loading website and stable software that improved management and sales." }, '5': { quote: "Natural manual seeding with real-like comments that clearly boosted post credibility." }, '6': { quote: "Real interactions with flexible content that increased inbox messages and conversions." } } },
-    insights: { title: 'Curated Insights', subtitle: 'Advanced perspectives on the future of digital marketing.', view_journal: 'View All', items: { '1': { category: 'Paid Performance', title: 'The 2026 Meta Algorithm Shift', desc: 'Navigating privacy-first attribution and the rise of autonomous bidding strategies.' }, '2': { category: 'Viral Systems', title: 'TikTok Shop: Ecosystem Mastery', desc: 'How to build a self-sustaining sales machine through short-form storytelling.' }, '3': { category: 'Web Architecture', title: 'UX for High-Ticket Conversions', desc: 'Designing digital experiences that command authority and facilitate trust.' } } },
+    insights: { title: 'Curated News', subtitle: 'Advanced perspectives on the future of digital marketing.', view_journal: 'View All', items: { '1': { category: 'Paid Performance', title: 'The 2026 Meta Algorithm Shift', desc: 'Navigating privacy-first attribution and the rise of autonomous bidding strategies.' }, '2': { category: 'Viral Systems', title: 'TikTok Shop: Ecosystem Mastery', desc: 'How to build a self-sustaining sales machine through short-form storytelling.' }, '3': { category: 'Web Architecture', title: 'UX for High-Ticket Conversions', desc: 'Designing digital experiences that command authority and facilitate trust.' } } },
     contact: {
       title: 'Contact',
       subtitle: 'Please leave your information; we are ready to listen and support you.',
@@ -71,6 +72,7 @@ export const translations = {
     footer: { rights: '© 2026 Lê Châu Kiệt Private Brand. All Rights Reserved.', privacy: 'Privacy Protocol', agreement: 'Service Agreement' }
   },
   vi: {
+    brand: 'LÊ CHÂU KIỆT',
     nav: {
       home: 'Trang chủ',
       about: 'Giới thiệu',

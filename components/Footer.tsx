@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
             alt="Lê Châu Kiệt Logo"
             className="w-8 h-8 rounded-full object-cover shadow-sm"
           />
-          <h2 className="text-lg font-extrabold tracking-[0.1em] text-slate-900 dark:text-white uppercase">Lê Châu Kiệt</h2>
+          <h2 className="text-lg font-extrabold tracking-[0.1em] text-slate-900 dark:text-white uppercase">{t('brand')}</h2>
         </div>
         <p className="text-slate-500 text-[10px] uppercase tracking-widest">
           {t('footer.rights')}

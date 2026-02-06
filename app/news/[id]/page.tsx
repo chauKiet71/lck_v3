@@ -30,7 +30,7 @@ export default function InsightDetail() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white dark:bg-navy-deep">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">Insight not found</h2>
+          <h2 className="text-2xl font-bold mb-4">News not found</h2>
           <Link href="/" className="text-primary hover:underline">Return to home</Link>
         </div>
       </div>
@@ -135,7 +135,7 @@ export default function InsightDetail() {
                 : { title: t(`insights.items.${item.id}.title`), cat: t(`insights.items.${item.id}.category`) };
 
               return (
-                <Link href={`/insight/${item.id}`} key={item.id} className="group">
+                <Link href={`/news/${item.id}`} key={item.id} className="group">
                   <div className="aspect-[16/9] rounded-3xl overflow-hidden mb-6 border border-black/5 dark:border-white/5">
                     <img src={item.imageUrl} className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
                   </div>

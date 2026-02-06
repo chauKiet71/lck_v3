@@ -28,10 +28,10 @@ const News: React.FC = () => {
         cat: t(`insights.items.${item.id}.category`) || item.category
       };
 
-      const matchesSearch = 
+      const matchesSearch =
         displayData.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         displayData.desc?.toLowerCase().includes(searchTerm.toLowerCase());
-      
+
       const matchesCategory = !activeCategory || (displayData.cat === activeCategory || item.category === activeCategory);
 
       return matchesSearch && matchesCategory;
@@ -43,7 +43,7 @@ const News: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-end gap-10 mb-20 border-b border-black/5 dark:border-white/5 pb-12">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="max-w-2xl"
@@ -55,15 +55,15 @@ const News: React.FC = () => {
               {t('news.subtitle')}
             </p>
           </motion.div>
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             className="w-full md:w-80"
           >
             <div className="relative group">
               <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">search</span>
-              <input 
+              <input
                 type="text"
                 placeholder={t('news.search_placeholder')}
                 className="w-full bg-slate-50 dark:bg-navy-surface border border-black/5 dark:border-white/10 rounded-full py-4 pl-12 pr-6 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
@@ -75,18 +75,18 @@ const News: React.FC = () => {
         </div>
 
         {/* Categories Bar */}
-        <motion.div 
+        <motion.div
           layout
           className="flex flex-wrap gap-4 mb-16 items-center"
         >
-          <button 
+          <button
             onClick={() => setActiveCategory(null)}
             className={`px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all ${!activeCategory ? 'bg-primary text-white' : 'bg-slate-100 dark:bg-white/5 text-slate-500 hover:bg-slate-200 dark:hover:bg-white/10'}`}
           >
             {t('news.all_categories')}
           </button>
           {categories.map(cat => (
-            <button 
+            <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
               className={`px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all ${activeCategory === cat ? 'bg-primary text-white' : 'bg-slate-100 dark:bg-white/5 text-slate-500 hover:bg-slate-200 dark:hover:bg-white/10'}`}
@@ -97,7 +97,7 @@ const News: React.FC = () => {
         </motion.div>
 
         {/* Grid Section */}
-        <motion.div 
+        <motion.div
           layout
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-16"
         >
@@ -118,12 +118,12 @@ const News: React.FC = () => {
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <Link 
-                    href={`/insight/${insight.id}`} 
+                  <Link
+                    href={`/news/${insight.id}`}
                     className="group block"
                   >
                     <div className="relative aspect-[4/5] rounded-[2.5rem] bg-slate-100 dark:bg-navy-surface mb-8 overflow-hidden border border-black/5 dark:border-white/5 shadow-lg">
-                      <div 
+                      <div
                         className="w-full h-full bg-cover bg-center grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 ease-out"
                         style={{ backgroundImage: `url("${insight.imageUrl}")` }}
                       ></div>
@@ -134,7 +134,7 @@ const News: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="space-y-4">
                       <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em]">
                         {displayData.cat || insight.category}
@@ -146,8 +146,8 @@ const News: React.FC = () => {
                         {displayData.desc || insight.description}
                       </p>
                       <div className="pt-4 flex items-center gap-4">
-                         <span className="w-10 h-px bg-black/10 dark:bg-white/10 group-hover:w-16 group-hover:bg-primary transition-all duration-500"></span>
-                         <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400 group-hover:text-primary transition-colors">Read More</span>
+                        <span className="w-10 h-px bg-black/10 dark:bg-white/10 group-hover:w-16 group-hover:bg-primary transition-all duration-500"></span>
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400 group-hover:text-primary transition-colors">Read More</span>
                       </div>
                     </div>
                   </Link>
@@ -156,15 +156,15 @@ const News: React.FC = () => {
             })}
           </AnimatePresence>
         </motion.div>
-        
+
         {filteredInsights.length === 0 && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="py-40 text-center"
           >
-             <span className="material-symbols-outlined text-6xl text-slate-200 dark:text-white/10 mb-6">article</span>
-             <p className="text-slate-500 italic">{t('news.no_results')}</p>
+            <span className="material-symbols-outlined text-6xl text-slate-200 dark:text-white/10 mb-6">article</span>
+            <p className="text-slate-500 italic">{t('news.no_results')}</p>
           </motion.div>
         )}
       </div>
