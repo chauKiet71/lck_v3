@@ -1,15 +1,17 @@
-import { Pool } from 'pg';
-import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '@prisma/client';
 
-const connectionString = process.env.DATABASE_URL;
-
 const prismaClientSingleton = () => {
-    // Ensure we handle the case where env might be undefined in build time slightly gracefully or just fail hard if needed
-    // But typically usually defined.
-    const pool = new Pool({ connectionString });
-    const adapter = new PrismaPg(pool);
-    return new PrismaClient({ adapter });
+    // Check for DATABASE_URL for easier debugging
+    const connectionString = process.env.DATABASE_URL;
+    if (!connectionString) {
+        console.error("❌ CRITICAL ERROR: DATABASE_URL is missing in environment variables.");
+        if (process.env.NODE_ENV === 'production') {
+            // throw new Error("DATABASE_URL must be defined");
+        }
+    }
+
+    // Use standard Prisma Client without the adapter for better compatibility in this environment
+    return new PrismaClient();
 };
 
 type PrismaClientSingleton = ReturnType<typeof prismaClientSingleton>;
