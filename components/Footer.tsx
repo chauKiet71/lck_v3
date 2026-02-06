@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
         <div className="flex items-center gap-3">
           <img
-            src="https://sf-static.upanhlaylink.com/img/image_2026020594684ce0352ead3ab5bbb9ccde9b70b4.jpg"
+            src="/images/logo.png"
             alt="Lê Châu Kiệt Logo"
             className="w-8 h-8 rounded-full object-cover shadow-sm"
           />

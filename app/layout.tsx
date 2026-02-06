@@ -19,7 +19,7 @@ export const metadata = {
     url: 'https://lechaukiet.com/',
     siteName: 'Lê Châu Kiệt Digital Marketing',
     images: [{
-      url: 'https://sf-static.upanhlaylink.com/img/image_20260206483744eab36d28171909f3a8dc562f15.jpg',
+      url: '/images/lechaukiet.png',
       width: 1200,
       height: 630,
       alt: 'Lê Châu Kiệt Digital Marketing',
@@ -37,8 +37,8 @@ export const metadata = {
     },
   },
   icons: {
-    icon: 'https://sf-static.upanhlaylink.com/img/image_2026020594684ce0352ead3ab5bbb9ccde9b70b4.jpg',
-    apple: 'https://sf-static.upanhlaylink.com/img/image_2026020594684ce0352ead3ab5bbb9ccde9b70b4.jpg',
+    icon: '/images/logo.png',
+    apple: '/images/logo.png',
   },
 };
 

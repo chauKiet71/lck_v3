@@ -90,7 +90,7 @@ const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3 group">
           <img
-            src="https://sf-static.upanhlaylink.com/img/image_2026020594684ce0352ead3ab5bbb9ccde9b70b4.jpg"
+            src="/images/logo.png"
             alt="Lê Châu Kiệt Logo"
             className="w-10 h-10 rounded-full object-cover shadow-lg"
           />
