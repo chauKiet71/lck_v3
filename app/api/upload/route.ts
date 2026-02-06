@@ -1,39 +1,43 @@
 import { NextResponse } from 'next/server';
-import { writeFile, mkdir } from 'fs/promises';
-import path from 'path';
+import { v2 as cloudinary } from 'cloudinary';
+
+// Configure Cloudinary
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export async function POST(request: Request) {
-    const data = await request.formData();
-    const file: File | null = data.get('file') as unknown as File;
-
-    if (!file) {
-        return NextResponse.json({ success: false, error: 'No file uploaded' }, { status: 400 });
-    }
-
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-
-    // Ensure uploads directory exists
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads');
     try {
-        await mkdir(uploadDir, { recursive: true });
-    } catch (e) {
-        // Ignore error if directory already exists
+        const data = await request.formData();
+        const file: File | null = data.get('file') as unknown as File;
+
+        if (!file) {
+            return NextResponse.json({ success: false, error: 'No file uploaded' }, { status: 400 });
+        }
+
+        const bytes = await file.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+
+        // Upload to Cloudinary using a stream (since we have a buffer)
+        // Alternative: Write to temp file then upload, but stream is cleaner for serverless
+        const result = await new Promise<any>((resolve, reject) => {
+            const uploadStream = cloudinary.uploader.upload_stream(
+                {
+                    folder: 'lck_portfolio', // Optional folder name in Cloudinary
+                },
+                (error, result) => {
+                    if (error) reject(error);
+                    else resolve(result);
+                }
+            );
+            uploadStream.end(buffer);
+        });
+
+        return NextResponse.json({ success: true, url: result.secure_url });
+    } catch (error) {
+        console.error('Upload Error:', error);
+        return NextResponse.json({ success: false, error: 'Upload failed' }, { status: 500 });
     }
-
-    // Create unique filename
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    // Safely get extension or default to .jpg if missing (though unlikely for file objects)
-    const ext = path.extname(file.name) || '.jpg';
-    // Sanitize filename
-    const sanitizedBasename = file.name.replace(/\.[^/.]+$/, "").replace(/[^a-z0-9]/gi, '_').toLowerCase();
-
-    const filename = `${sanitizedBasename}-${uniqueSuffix}${ext}`;
-    const filepath = path.join(uploadDir, filename);
-
-    await writeFile(filepath, buffer);
-
-    const fileUrl = `/uploads/${filename}`;
-
-    return NextResponse.json({ success: true, url: fileUrl });
 }
