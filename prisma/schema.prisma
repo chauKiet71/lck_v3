@@ -17,6 +17,12 @@ model Insight {
   content     String
   imageUrl    String
   localized   String   // Storing JSON string for multi-language support (Simple & Portable)
+  
+  // SEO Fields
+  seoTitle       String?
+  seoDescription String?
+  seoKeywords    String? // Comma separated
+
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   

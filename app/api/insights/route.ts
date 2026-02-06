@@ -46,7 +46,10 @@ export async function POST(request: Request) {
                 content,
                 imageUrl,
                 localized: JSON.stringify(localized), // Store as JSON string
-                categoryId: categoryId || null
+                categoryId: categoryId || null,
+                seoTitle: body.seoTitle,
+                seoDescription: body.seoDescription,
+                seoKeywords: body.seoKeywords
             }
         });
 

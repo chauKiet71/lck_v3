@@ -18,6 +18,7 @@ const AdminInsights: React.FC = () => {
     const [editingId, setEditingId] = useState<string | null>(null);
     const [aiLoading, setAiLoading] = useState(false);
     const [categories, setCategories] = useState<Category[]>([]);
+    const [uploading, setUploading] = useState(false);
 
     // Fetch categories on mount
     useEffect(() => {
@@ -36,7 +37,10 @@ const AdminInsights: React.FC = () => {
         contentEn: '',
         contentVi: '',
         imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800',
-        categoryId: ''
+        categoryId: '',
+        seoTitle: '',
+        seoDesc: '',
+        seoKeywords: ''
     });
 
     const generateSlug = (text: string) => {
@@ -120,6 +124,32 @@ const AdminInsights: React.FC = () => {
         }
     };
 
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files || e.target.files.length === 0) return;
+        const file = e.target.files[0];
+        const formData = new FormData();
+        formData.append('file', file);
+
+        setUploading(true);
+        try {
+            const res = await fetch('/api/upload', {
+                method: 'POST',
+                body: formData,
+            });
+            const data = await res.json();
+            if (data.success) {
+                setFormData(prev => ({ ...prev, imageUrl: data.url }));
+            } else {
+                alert('Upload failed: ' + data.error);
+            }
+        } catch (error) {
+            console.error('Error uploading image:', error);
+            alert('Error uploading image');
+        } finally {
+            setUploading(false);
+        }
+    };
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (!formData.slug) {
@@ -147,6 +177,9 @@ const AdminInsights: React.FC = () => {
             description: formData.descEn,
             content: formData.contentEn,
             imageUrl: formData.imageUrl,
+            seoTitle: formData.seoTitle,
+            seoDescription: formData.seoDesc,
+            seoKeywords: formData.seoKeywords,
             localized: {
                 en: { title: formData.titleEn, desc: formData.descEn, cat: categoryName, content: formData.contentEn },
                 vi: { title: formData.titleVi, desc: formData.descVi, cat: categoryName, content: formData.contentVi } // Assuming category name doesn't change translation for now simplicty
@@ -166,7 +199,8 @@ const AdminInsights: React.FC = () => {
             titleEn: '', titleVi: '', descEn: '', descVi: '',
             contentEn: '', contentVi: '',
             imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800',
-            categoryId: ''
+            categoryId: '',
+            seoTitle: '', seoDesc: '', seoKeywords: ''
         });
     };
 
@@ -186,7 +220,10 @@ const AdminInsights: React.FC = () => {
             contentEn: savedLocalized.en?.content || insight.content || '',
             contentVi: savedLocalized.vi?.content || '',
             categoryId: catId,
-            imageUrl: insight.imageUrl
+            imageUrl: insight.imageUrl,
+            seoTitle: insight.seoTitle || '',
+            seoDesc: insight.seoDescription || '',
+            seoKeywords: insight.seoKeywords || ''
         });
         setIsAdding(true);
     };
@@ -209,7 +246,8 @@ const AdminInsights: React.FC = () => {
                                 titleEn: '', titleVi: '', descEn: '', descVi: '',
                                 contentEn: '', contentVi: '',
                                 imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800',
-                                categoryId: ''
+                                categoryId: '',
+                                seoTitle: '', seoDesc: '', seoKeywords: ''
                             });
                         }
                     }}
@@ -298,6 +336,30 @@ const AdminInsights: React.FC = () => {
                                     </div>
                                 </div>
 
+                                {/* SEO Settings */}
+                                <div className="bg-slate-100 dark:bg-white/5 p-6 rounded-2xl border border-black/5 dark:border-white/5">
+                                    <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                                        <span className="material-symbols-outlined text-green-500">search</span>
+                                        SEO Settings
+                                    </h4>
+                                    <div className="space-y-4">
+                                        <div className="grid md:grid-cols-2 gap-4">
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-bold text-slate-400 uppercase">Meta Title</label>
+                                                <input className="w-full bg-white dark:bg-black/20 p-3 rounded-lg border border-black/5 dark:border-white/10 outline-none focus:ring-2 ring-primary/50 dark:text-white text-sm" placeholder="Title for Google (Max 60 chars)" value={formData.seoTitle} onChange={e => setFormData({ ...formData, seoTitle: e.target.value })} />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-bold text-slate-400 uppercase">Keywords</label>
+                                                <input className="w-full bg-white dark:bg-black/20 p-3 rounded-lg border border-black/5 dark:border-white/10 outline-none focus:ring-2 ring-primary/50 dark:text-white text-sm" placeholder="legacy, consulting, strategy (comma separated)" value={formData.seoKeywords} onChange={e => setFormData({ ...formData, seoKeywords: e.target.value })} />
+                                            </div>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="text-xs font-bold text-slate-400 uppercase">Meta Description</label>
+                                            <textarea rows={2} className="w-full bg-white dark:bg-black/20 p-3 rounded-lg border border-black/5 dark:border-white/10 outline-none focus:ring-2 ring-primary/50 dark:text-white text-sm resize-none" placeholder="Description for search results (Max 160 chars)" value={formData.seoDesc} onChange={e => setFormData({ ...formData, seoDesc: e.target.value })} />
+                                        </div>
+                                    </div>
+                                </div>
+
                                 {/* Content */}
                                 <div className="grid md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
@@ -318,7 +380,24 @@ const AdminInsights: React.FC = () => {
                                 <div className="grid md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
                                         <label className="text-xs font-bold text-slate-400 uppercase">Cover Image URL</label>
-                                        <input className="w-full bg-white dark:bg-black/20 p-3 rounded-lg border border-black/5 dark:border-white/10 outline-none focus:ring-2 ring-primary/50 dark:text-white" value={formData.imageUrl} onChange={e => setFormData({ ...formData, imageUrl: e.target.value })} />
+                                        <div className="flex gap-2">
+                                            <input className="w-full bg-white dark:bg-black/20 p-3 rounded-lg border border-black/5 dark:border-white/10 outline-none focus:ring-2 ring-primary/50 dark:text-white" value={formData.imageUrl} onChange={e => setFormData({ ...formData, imageUrl: e.target.value })} />
+                                            <label className={`cursor-pointer bg-slate-200 dark:bg-white/10 hover:bg-slate-300 dark:hover:bg-white/20 text-slate-600 dark:text-white px-4 py-3 rounded-lg flex items-center justify-center transition-colors min-w-[60px] ${uploading ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                                                {uploading ? (
+                                                    <span className="w-5 h-5 border-2 border-slate-500 border-t-transparent rounded-full animate-spin"></span>
+                                                ) : (
+                                                    <>
+                                                        <span className="material-symbols-outlined">upload_file</span>
+                                                        <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} disabled={uploading} />
+                                                    </>
+                                                )}
+                                            </label>
+                                        </div>
+                                        {formData.imageUrl && (
+                                            <div className="mt-2">
+                                                <img src={formData.imageUrl} alt="Preview" className="h-32 w-full object-cover rounded-lg border border-black/5 dark:border-white/5" />
+                                            </div>
+                                        )}
                                     </div>
                                     <div className="flex items-end">
                                         <button type="submit" className="w-full bg-primary text-white font-bold py-3 rounded-lg hover:bg-primary/90 transition">
