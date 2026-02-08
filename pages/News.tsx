@@ -38,6 +38,25 @@ const News: React.FC = () => {
     });
   }, [insights, language, searchTerm, activeCategory, t]);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 6;
+
+  // Reset page when filters change
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, activeCategory]);
+
+  const totalPages = Math.ceil(filteredInsights.length / ITEMS_PER_PAGE);
+  const paginatedInsights = filteredInsights.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen bg-white dark:bg-navy-deep pt-32 pb-20 px-6 lg:px-12 transition-colors duration-300">
       <div className="max-w-7xl mx-auto">
@@ -102,7 +121,7 @@ const News: React.FC = () => {
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-16"
         >
           <AnimatePresence mode="popLayout">
-            {filteredInsights.map((insight, index) => {
+            {paginatedInsights.map((insight, index) => {
               const displayData = (insight as any).localized?.[language] || {
                 title: t(`insights.items.${insight.id}.title`),
                 desc: t(`insights.items.${insight.id}.desc`),
@@ -156,6 +175,39 @@ const News: React.FC = () => {
             })}
           </AnimatePresence>
         </motion.div>
+
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="flex justify-center items-center gap-4 mt-20">
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className={`p-3 rounded-full transition-all ${currentPage === 1 ? 'text-slate-300 dark:text-slate-700 cursor-not-allowed' : 'text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-white/10'}`}
+            >
+              <span className="material-symbols-outlined">chevron_left</span>
+            </button>
+
+            <div className="flex gap-2">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                <button
+                  key={page}
+                  onClick={() => handlePageChange(page)}
+                  className={`w-10 h-10 rounded-full font-bold text-sm transition-all ${currentPage === page ? 'bg-primary text-white shadow-lg shadow-primary/30' : 'text-slate-500 hover:bg-slate-100 dark:hover:bg-white/10'}`}
+                >
+                  {page}
+                </button>
+              ))}
+            </div>
+
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className={`p-3 rounded-full transition-all ${currentPage === totalPages ? 'text-slate-300 dark:text-slate-700 cursor-not-allowed' : 'text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-white/10'}`}
+            >
+              <span className="material-symbols-outlined">chevron_right</span>
+            </button>
+          </div>
+        )}
 
         {filteredInsights.length === 0 && (
           <motion.div
