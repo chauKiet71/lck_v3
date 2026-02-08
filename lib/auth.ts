@@ -4,6 +4,9 @@ import bcrypt from "bcryptjs"
 import { NextAuthOptions } from "next-auth"
 
 export const authOptions: NextAuthOptions = {
+    session: {
+        strategy: "jwt",
+    },
     providers: [
         CredentialsProvider({
             name: 'Credentials',
