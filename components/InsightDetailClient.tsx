@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAppContext } from '@/context/AppContext';
@@ -8,6 +8,15 @@ import { useAppContext } from '@/context/AppContext';
 export default function InsightDetailClient({ id, insightData }: { id: string, insightData: any }) {
     const router = useRouter();
     const { insights, language, t } = useAppContext();
+    const [copied, setCopied] = useState(false);
+
+    const handleShare = () => {
+        if (typeof window !== 'undefined') {
+            navigator.clipboard.writeText(window.location.href);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        }
+    };
 
     // Prefer context (latest) data if available, else fallback to server data
     const contextInsight = insights.find(i => i.id === id);
@@ -104,11 +113,15 @@ export default function InsightDetailClient({ id, insightData }: { id: string, i
                 <div className="mt-20 pt-10 border-t border-black/5 dark:border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{t('insight_detail.share')}</p>
                     <div className="flex gap-4">
-                        {['LinkedIn', 'Twitter', 'Direct URL'].map(social => (
-                            <button key={social} className="px-6 py-2 rounded-full border border-black/10 dark:border-white/10 text-[10px] font-bold uppercase tracking-widest hover:border-primary hover:text-primary transition-all">
-                                {social}
-                            </button>
-                        ))}
+                        <button
+                            onClick={handleShare}
+                            className={`px-8 py-3 rounded-full border text-[10px] font-bold uppercase tracking-widest transition-all ${copied
+                                ? 'bg-blue-500 border-blue-500 text-white'
+                                : 'border-black/10 dark:border-white/10 hover:border-primary hover:text-primary dark:text-white'
+                                }`}
+                        >
+                            {copied ? t('insight_detail.copied') : t('insight_detail.share_button')}
+                        </button>
                     </div>
                 </div>
             </article>

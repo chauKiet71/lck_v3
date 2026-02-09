@@ -6,12 +6,12 @@ export const translations = {
       home: 'Home',
       about: 'About',
       services: 'Services',
-      insights: 'Journal',
+      insights: 'News',
       contact: 'Contact',
       crm: 'CRM Admin'
     },
     news: {
-      title: 'Digital Journal',
+      title: 'News',
       subtitle: 'Advanced perspectives on the intersection of technology, luxury, and digital strategy.',
       search_placeholder: 'Search...',
       all_categories: 'All Perspectives',
@@ -41,14 +41,16 @@ export const translations = {
       back: 'Back to News',
       related: 'Related Perspectives',
       reading_time: '5 min read',
-      share: 'Share Protocol'
+      share: 'Share Protocol',
+      share_button: 'Share Link',
+      copied: 'Copied!'
     },
     hero: { tagline: 'Strategic Digital Consultancy', title: 'Total Marketing Solution for Business Growth', subtitle: 'Integrated Marketing Solutions help businesses build consistent brands, execute effective multi-channel strategies, and drive sustainable growth.', consult: 'Consult Now', portfolio: 'View Portfolio', stat1: 'Selective quality', stat1_desc: 'Our Core Standard', stat2: 'Strategic mindset', stat2_desc: 'Our Approach', roi_tag: 'Growth Benchmark' },
     about: { vision: 'I\'m Le Chau Kiet', p1: 'I’m a digital marketing specialist with years of experience working with individuals and businesses. I focus on creating effective, goal-oriented marketing strategies based on real data and a deep understanding of each client’s needs.', p2: 'From brand building and online growth to conversion optimization, I deliver practical, transparent, and sustainable solutions. My goal is not just to run campaigns, but to work alongside clients to achieve long-term success in the digital space.', stat1: 'Elite Partnerships', stat2: 'Years of Mastery' },
     services: { title: 'Technical Solutions', subtitle: 'Technical solutions in digital marketing that optimize systems, data, and performance across channels.', items: { 'paid-social': { title: 'Advertising Ads', desc: 'Multi-platform advertising services to reach the right audience, optimize budget and boost conversions.' }, 'tiktok': { title: 'Social Resources', desc: 'Providing quality social resources including Via, ad accounts, groups, fanpages and TikTok channels.' }, 'web-arch': { title: 'Website – Software', desc: 'Website and custom software development to support sales, management and business automation.' }, 'strategic-adv': { title: 'Seeding Manual', desc: 'Manual seeding with real interactions to build trust, increase engagement and influence buyers.' } } },
     philosophy: { title: 'The Core', p1_title: 'Selective Quality', p1_desc: 'I only engage with projects where i can deliver transformational value, ensuring boutique-level attention.', p2_title: 'Strategic Mindset', p2_desc: 'Decisions backed by data and psychological insights, moving beyond simple automation to human-centric growth.', p3_title: 'Sustainable Results', p3_desc: 'Xây dựng tài sản và phễu hoạt động nhất quán trong nhiều năm, không chỉ trong các chiến dịch ngắn hạn.', cta_title: 'Ready for a Paradigm Shift?', cta_desc: 'Elevate your digital presence to match the quality of your services. Let\'s engineer your growth together.', cta_button: 'CONSULT NOW' },
     testimonials: { title: 'Customer Reviews', subtitle: 'Real feedback from people who trust me.', items: { '1': { quote: "Effective ads with accurate targeting, optimized costs and clear growth in orders." }, '2': { quote: "Professional ads team, close campaign monitoring and fast support when adjustments were needed." }, '3': { quote: "Quality social resources including ad accounts, fanpages and groups, easy to deploy with few issues." }, '4': { quote: "Well-designed, fast-loading website and stable software that improved management and sales." }, '5': { quote: "Natural manual seeding with real-like comments that clearly boosted post credibility." }, '6': { quote: "Real interactions with flexible content that increased inbox messages and conversions." } } },
-    insights: { title: 'Curated News', subtitle: 'Advanced perspectives on the future of digital marketing.', view_journal: 'View All', items: { '1': { category: 'Paid Performance', title: 'The 2026 Meta Algorithm Shift', desc: 'Navigating privacy-first attribution and the rise of autonomous bidding strategies.' }, '2': { category: 'Viral Systems', title: 'TikTok Shop: Ecosystem Mastery', desc: 'How to build a self-sustaining sales machine through short-form storytelling.' }, '3': { category: 'Web Architecture', title: 'UX for High-Ticket Conversions', desc: 'Designing digital experiences that command authority and facilitate trust.' } } },
+    insights: { title: 'News', subtitle: 'Advanced perspectives on the future of digital marketing.', view_journal: 'View All', items: { '1': { category: 'Paid Performance', title: 'The 2026 Meta Algorithm Shift', desc: 'Navigating privacy-first attribution and the rise of autonomous bidding strategies.' }, '2': { category: 'Viral Systems', title: 'TikTok Shop: Ecosystem Mastery', desc: 'How to build a self-sustaining sales machine through short-form storytelling.' }, '3': { category: 'Web Architecture', title: 'UX for High-Ticket Conversions', desc: 'Designing digital experiences that command authority and facilitate trust.' } } },
     contact: {
       title: 'Contact',
       subtitle: 'Please leave your information; we are ready to listen and support you.',
@@ -82,7 +84,7 @@ export const translations = {
       crm: 'Quản trị'
     },
     news: {
-      title: 'Nhật ký Kỹ thuật số',
+      title: 'Tin tức',
       subtitle: 'Những góc nhìn tiên tiến về giao điểm của công nghệ, sự sang trọng và chiến lược kỹ thuật số.',
       search_placeholder: 'Tìm kiếm...',
       all_categories: 'Tất cả chuyên mục',
@@ -112,14 +114,16 @@ export const translations = {
       back: 'Quay lại tin tức',
       related: 'Góc nhìn liên quan',
       reading_time: '5 phút đọc',
-      share: 'Giao thức chia sẻ'
+      share: 'Giao thức chia sẻ',
+      share_button: 'Chia sẻ liên kết',
+      copied: 'Đã sao chép!'
     },
     hero: { tagline: 'Tư vấn Chiến lược Kỹ thuật số', title: 'Giải pháp cho xây dựng Marketing tổng thể', subtitle: 'Giải pháp Marketing tổng thể giúp doanh nghiệp xây dựng thương hiệu nhất quán, triển khai đa kênh hiệu quả và thúc đẩy tăng trưởng bền vững.', consult: 'Tư vấn ngay', portfolio: 'Xem Portfolio', stat1: 'Chất lượng chọn lọc', stat1_desc: 'Tiêu chuẩn cốt lõi', stat2: 'Tư duy chiến lược', stat2_desc: 'Cách tiếp cận của chúng tôi', roi_tag: 'Điểm chuẩn tăng trưởng' },
     about: { vision: 'Tôi là Lê Châu Kiệt', p1: 'Tôi là chuyên gia Digital Marketing với nhiều năm kinh nghiệm cung cấp dịch vụ cho cá nhân và doanh nghiệp. Tôi tập trung vào việc xây dựng chiến lược marketing hiệu quả, dựa trên dữ liệu và mục tiêu thực tế của từng khách hàng.', p2: 'Từ xây dựng thương hiệu, phát triển kênh online đến tối ưu chuyển đổi, tôi luôn ưu tiên các giải pháp phù hợp, minh bạch và bền vững. Mục tiêu của tôi không chỉ là triển khai chiến dịch, mà là đồng hành cùng khách hàng để tạo ra tăng trưởng lâu dài trong môi trường số.', stat1: 'Đối tác chiến lược', stat2: 'Năm kinh nghiệm' },
     services: { title: 'Giải pháp Kỹ thuật', subtitle: 'Giải pháp kỹ thuật trong digital marketing giúp tối ưu hệ thống, dữ liệu và hiệu suất chiến dịch đa kênh.', items: { 'paid-social': { title: 'Quảng cáo Ads', desc: 'Chạy quảng cáo đa nền tảng, tiếp cận đúng khách hàng, tối ưu chi phí và tăng tỷ lệ chuyển đổi.' }, 'tiktok': { title: 'Nguyên liệu Social', desc: 'Cung cấp Via, TKQC, group, fanpage, kênh TikTok chất lượng phục vụ xây dựng hệ thống mạng xã hội.' }, 'web-arch': { title: 'Website – Phần mềm', desc: 'Thiết kế website, phần mềm theo yêu cầu, hỗ trợ bán hàng, quản lý và tự động hóa hiệu quả.' }, 'strategic-adv': { title: 'Seeding thủ công', desc: 'Seeding thủ công, tương tác thật, nội dung tự nhiên giúp tăng uy tín và thúc đẩy hành vi mua.' } } },
     philosophy: { title: 'Cốt lõi', p1_title: 'Chất lượng Chọn lọc', p1_desc: 'Chúng tôi chỉ tham gia vào các dự án mà tôi có thể mang lại giá trị chuyển đổi, đảm bảo sự chú ý ở cấp độ boutique.', p2_title: 'Tư duy Chiến lược', p2_desc: 'Các quyết định dựa trên dữ liệu và hiểu biết tâm lý, vượt ra ngoài tự động hóa đơn thuần để hướng tới sự tăng trưởng lấy con người làm trung tâm.', p3_title: 'Kết quả Bền vững', p3_desc: 'Xây dựng tài sản và phễu hoạt động nhất quán trong nhiều năm, không chỉ trong các chiến dịch ngắn hạn.', cta_title: 'Sẵn sàng cho một Sự thay đổi?', cta_desc: 'Nâng tầm hiện diện kỹ thuật số của bạn để xứng tầm với chất lượng dịch vụ. Hãy cùng nhau kiến tạo sự tăng trưởng của bạn.', cta_button: 'TƯ VẤN NGAY' },
     testimonials: { title: 'Khách hàng đánh giá', subtitle: 'Phản hồi thực tế từ những người tin tưởng tôi.', items: { '1': { quote: "Chạy Ads hiệu quả, target đúng tệp khách hàng, chi phí được tối ưu và đơn hàng tăng rõ rệt." }, '2': { quote: "Đội ngũ làm Ads chuyên nghiệp, theo dõi sát chiến dịch và hỗ trợ nhanh khi cần điều chỉnh." }, '3': { quote: "Via, TKQC, fanpage và group chất lượng tốt, dễ triển khai marketing, hạn chế lỗi phát sinh." }, '4': { quote: "Website đẹp, load nhanh, đúng yêu cầu. Phần mềm ổn định giúp quản lý và bán hàng hiệu quả hơn." }, '5': { quote: "Seeding thủ công tự nhiên, bình luận giống người thật, giúp bài viết tăng uy tín rõ ràng." }, '6': { quote: "Tương tác thật, nội dung linh hoạt theo kịch bản, giúp tăng inbox và tỷ lệ chốt đơn." } } },
-    insights: { title: 'Kiến thức Chọn lọc', subtitle: 'Những góc nhìn chuyên sâu về tương lai của tiếp thị kỹ thuật số.', view_journal: 'Xem tất cả', items: { '1': { category: 'Hiệu suất Trả phí', title: 'Sự thay đổi thuật toán Meta 2026', desc: 'Điều hướng quy trình phân bổ ưu tiên quyền riêng tư và sự trỗi dậy của các chiến lược đấu thầu tự động.' }, '2': { category: 'Hệ thống Lan truyền', title: 'TikTok Shop: Làm chủ hệ sinh thái', desc: 'Cách xây dựng cỗ máy bán hàng tự vận hành thông qua kể chuyện dạng ngắn.' }, '3': { category: 'Kiến trúc Web', title: 'UX cho Chuyển đổi Giá trị cao', desc: 'Thiết kế trải nghiệm kỹ thuật số tạo dựng uy tín và tạo điều kiện cho sự tin tưởng.' } } },
+    insights: { title: 'Tin tức', subtitle: 'Những góc nhìn chuyên sâu về tương lai của tiếp thị kỹ thuật số.', view_journal: 'Xem tất cả', items: { '1': { category: 'Hiệu suất Trả phí', title: 'Sự thay đổi thuật toán Meta 2026', desc: 'Điều hướng quy trình phân bổ ưu tiên quyền riêng tư và sự trỗi dậy của các chiến lược đấu thầu tự động.' }, '2': { category: 'Hệ thống Lan truyền', title: 'TikTok Shop: Làm chủ hệ sinh thái', desc: 'Cách xây dựng cỗ máy bán hàng tự vận hành thông qua kể chuyện dạng ngắn.' }, '3': { category: 'Kiến trúc Web', title: 'UX cho Chuyển đổi Giá trị cao', desc: 'Thiết kế trải nghiệm kỹ thuật số tạo dựng uy tín và tạo điều kiện cho sự tin tưởng.' } } },
     contact: {
       title: 'Liên hệ',
       subtitle: 'Hãy để lại thông tin, chúng tôi sẵn sàng lắng nghe và đồng hành cùng bạn.',
