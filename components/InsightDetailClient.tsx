@@ -86,7 +86,7 @@ export default function InsightDetailClient({ id, insightData }: { id: string, i
 
             {/* Content Section */}
             <article className="max-w-3xl mx-auto px-6 py-20">
-                <div className="aspect-[16/9] rounded-[2.5rem] overflow-hidden mb-16 shadow-2xl border border-black/5 dark:border-white/5">
+                <div className="aspect-[16/9] rounded-[1rem] overflow-hidden mb-16 shadow-2xl border border-black/5 dark:border-white/5">
                     <img src={insight.imageUrl} alt={displayData.title} className="w-full h-full object-cover" />
                 </div>
 

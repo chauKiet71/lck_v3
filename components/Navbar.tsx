@@ -162,9 +162,8 @@ const Navbar: React.FC = () => {
 
       {isMobileOpen && (
         <div className="lg:hidden fixed inset-0 z-50 bg-black/50" role="dialog" aria-modal="true" onClick={() => setIsMobileOpen(false)}>
-          <div className="fixed top-16 right-4 left-4 bg-navy-deep/95 border border-white/10 rounded-lg p-6 shadow-xl" onClick={(e) => e.stopPropagation()}>
+          <div className="fixed top-16 right-4 left-4 bg-navy-deep/95 border border-white/10 rounded-[1rem] p-6 shadow-xl" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-white font-bold">Menu</h2>
               <button onClick={() => setIsMobileOpen(false)} className="text-slate-400 hover:text-white" aria-label="Close Menu">
                 <span className="material-symbols-outlined">close</span>
               </button>
