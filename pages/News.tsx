@@ -141,17 +141,17 @@ const News: React.FC = () => {
                     href={`/news/${insight.id}`}
                     className="group block"
                   >
-                    <div className="relative aspect-[4/5] rounded-[2.5rem] bg-slate-100 dark:bg-navy-surface mb-8 overflow-hidden border border-black/5 dark:border-white/5 shadow-lg">
+                    <div className="relative aspect-[8/5] rounded-[1rem] bg-slate-100 dark:bg-navy-surface mb-8 overflow-hidden border border-black/5 dark:border-white/5 shadow-lg">
                       <div
                         className="w-full h-full bg-cover bg-center grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 ease-out"
                         style={{ backgroundImage: `url("${insight.imageUrl}")` }}
                       ></div>
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                      <div className="absolute top-6 right-6">
+                      {/* <div className="absolute top-6 right-6">
                         <div className="bg-white/10 backdrop-blur-md border border-white/20 p-3 rounded-full text-white opacity-0 group-hover:opacity-100 group-hover:rotate-12 transition-all">
                           <span className="material-symbols-outlined text-sm">arrow_outward</span>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
 
                     <div className="space-y-4">

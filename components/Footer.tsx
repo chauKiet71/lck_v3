@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
           <h2 className="text-lg font-extrabold tracking-[0.1em] text-slate-900 dark:text-white uppercase">{t('brand')}</h2>
         </div>
         <p className="text-slate-500 text-[10px] uppercase tracking-widest">
-          {t('footer.rights')}
+          &copy; {t('Copyright 2026 - LECHAUKIET.COM')}
         </p>
         <div className="flex gap-10 text-[10px] font-bold uppercase tracking-widest text-slate-500">
           <a href="#" className="hover:text-primary transition-colors">{t('footer.privacy')}</a>

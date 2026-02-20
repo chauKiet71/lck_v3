@@ -94,7 +94,7 @@ const Navbar: React.FC = () => {
             alt="Lê Châu Kiệt Logo"
             className="w-10 h-10 rounded-full object-cover shadow-lg"
           />
-          <h1 className="text-xl font-extrabold tracking-tight text-white uppercase hidden sm:block">{t('brand')}</h1>
+          <h1 className="text-xl font-extrabold tracking-tight text-white uppercase hidden sm:block drop-shadow-[0_0_8px_rgba(59,130,246,0.5)] cursor-pointer">{t('brand')}</h1>
         </Link>
 
         <nav className="hidden lg:flex items-center gap-10">

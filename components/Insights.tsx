@@ -44,7 +44,7 @@ const Insights: React.FC = () => {
 
               return (
                 <Link href={`/news/${insight.id}`} key={insight.id} className="group cursor-pointer block">
-                  <div className="aspect-[16/10] rounded-[2rem] bg-slate-100 dark:bg-navy-surface mb-8 overflow-hidden border border-black/5 dark:border-white/5 shadow-md">
+                  <div className="aspect-[16/10] rounded-[1rem] bg-slate-100 dark:bg-navy-surface mb-8 overflow-hidden border border-black/5 dark:border-white/5 shadow-md">
                     <div
                       className="w-full h-full bg-cover bg-center grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                       style={{ backgroundImage: `url("${insight.imageUrl}")` }}

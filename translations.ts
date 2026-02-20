@@ -12,7 +12,7 @@ export const translations = {
     },
     news: {
       title: 'News',
-      subtitle: 'Advanced perspectives on the intersection of technology, luxury, and digital strategy.',
+      subtitle: 'Modern perspectives on the integration of technology, luxury style, and digital strategy.',
       search_placeholder: 'Search...',
       all_categories: 'All Perspectives',
       no_results: 'No articles match your criteria.',
@@ -41,7 +41,7 @@ export const translations = {
       back: 'Back to News',
       related: 'Related Perspectives',
       reading_time: '5 min read',
-      share: 'Share Protocol',
+      share: 'Share',
       share_button: 'Share Link',
       copied: 'Copied!'
     },
@@ -85,7 +85,7 @@ export const translations = {
     },
     news: {
       title: 'Tin tức',
-      subtitle: 'Những góc nhìn tiên tiến về giao điểm của công nghệ, sự sang trọng và chiến lược kỹ thuật số.',
+      subtitle: 'Những góc nhìn hiện đại về sự kết hợp giữa công nghệ, phong cách sang trọng và chiến lược số.',
       search_placeholder: 'Tìm kiếm...',
       all_categories: 'Tất cả chuyên mục',
       no_results: 'Không tìm thấy bài viết phù hợp.',
@@ -114,7 +114,7 @@ export const translations = {
       back: 'Quay lại tin tức',
       related: 'Góc nhìn liên quan',
       reading_time: '5 phút đọc',
-      share: 'Giao thức chia sẻ',
+      share: 'Chia sẻ',
       share_button: 'Chia sẻ liên kết',
       copied: 'Đã sao chép!'
     },
