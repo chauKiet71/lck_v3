@@ -89,7 +89,6 @@ export default function InsightDetailClient({ id, insightData }: { id: string, i
                 <div className="aspect-[16/9] rounded-[1rem] overflow-hidden mb-16 shadow-2xl border border-black/5 dark:border-white/5">
                     <img src={insight.imageUrl} alt={displayData.title} className="w-full h-full object-cover" />
                 </div>
-
                 <div className="prose prose-lg dark:prose-invert prose-slate max-w-none">
                     <p className="text-2xl font-light text-slate-600 dark:text-slate-300 leading-relaxed italic mb-12 border-l-4 border-primary pl-8">
                         {displayData.desc || insight.description}

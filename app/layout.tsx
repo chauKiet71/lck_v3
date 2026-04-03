@@ -1,5 +1,5 @@
-
 import React from 'react';
+import Script from 'next/script';
 import { Providers } from '../components/Providers';
 import { ErrorBoundary } from '../components/ErrorBoundary';
 import Navbar from '../components/Navbar';
@@ -55,6 +55,35 @@ export default function RootLayout({
   return (
     <html lang="vi" className="dark" suppressHydrationWarning>
       <head>
+        {/* Google tag (gtag.js) */}
+
+        {/* <Script src="https://www.googletagmanager.com/gtag/js?id=G-S2VLSZ2TMZ" strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-S2VLSZ2TMZ');
+          `}
+        </Script> */}
+
+        {/* <!-- Google tag (gtag.js) --> */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-S2VLSZ2TMZ"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-S2VLSZ2TMZ');
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-S2VLSZ2TMZ');`}
+        </script>
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

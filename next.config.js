@@ -13,6 +13,15 @@ const nextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: false,
   },
+  async redirects() {
+    return [
+      {
+        source: '/0931308082',
+        destination: 'https://zalo.me/0931308082',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig
